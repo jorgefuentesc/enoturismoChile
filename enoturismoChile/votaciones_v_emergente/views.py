@@ -107,7 +107,7 @@ def envio_datos_formulario(request):
 
         validacion_pasaporte = RegistroVotosTest.objects.filter(pasaporte=documento).first()
         validacion_correo = RegistroVotosTest.objects.filter(correo_electronico=correo).first()
-        registro = RegistroVotosTest.objects.filter(tipo_registro=tipo_registro).first()
+        registro = RegistroVotosTest.objects.filter(tipo_registro=tipo_registro,pasaporte = documento ).first()
 
         pasaporte = validacion_pasaporte.pasaporte if validacion_pasaporte else None
         correoValidado = validacion_correo.correo_electronico if validacion_correo else None
