@@ -136,8 +136,8 @@
 }
 
 .disenno-modal {
-    width: 279px;
-    height: 366px;
+    width: 40%;
+    height: 60%;
     /* UI Properties */
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border-radius: 0px 73px 73px 0px;

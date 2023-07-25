@@ -148,5 +148,12 @@ def cargar_mdl_vinna(request):
     vina = request.GET.get('id_vina')
     vinna = VinnasTest.objects.filter(id=vina).first()  # Utiliza 'first()' para obtener solo un objeto, si existe
     nombre_vinna = vinna.nombre_vinna if vinna else None
-    response = {'nombre_vinna': nombre_vinna}
+    titulo_vinna = vinna.vinna_titulo if vinna else None
+    descripcion_vinna = vinna.vinna_descripcion if vinna else None
+    img_vinna = vinna.vinna_url_img_md if vinna else None
+    response = {'nombre_vinna': nombre_vinna,
+                'titulo_vinna': titulo_vinna,
+                'descripcion_vinna': descripcion_vinna,
+                'img_vinna': img_vinna,
+                }
     return JsonResponse(response)
