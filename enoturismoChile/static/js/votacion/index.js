@@ -138,6 +138,16 @@ $(document).ready(function () {
 
     // Prevenir el comportamiento predeterminado del formulario (enviarlo tradicionalmente)
     event.preventDefault();
+    const radioButtons = document.getElementsByName('inp_tipo_id');
+    let valorSeleccionado;
+    for (const radioButton of radioButtons) {
+        if (radioButton.checked) {
+            valorSeleccionado = radioButton.value;
+            break; // Salir del bucle cuando encuentre el seleccionado
+        }
+    }
+
+    // Mostrar el valor seleccionado en la consola
     var csrfToken = getCookie('csrftoken');
 
     var documento = $("#documento").val();
@@ -151,7 +161,7 @@ $(document).ready(function () {
       opciones: valoresSeleccionados,
     };
 
-    if (Fn.validaRut($("#documento").val())) {
+    if (Fn.validaRut($("#documento").val()) && valorSeleccionado == 'run' ) {
       $.ajax({
         type: "POST",
         url: "envio_datos_formulario/",
@@ -165,14 +175,38 @@ $(document).ready(function () {
             var error_envio = document.getElementById("error_envio")
             error_envio.textContent = response.message;
             error_envio.hidden = false;
-          }
+          }       
           else{
             window.location.replace('https://premiosenoturismochile.cl/votacion-exitosa/');
 
           }
         }
       });
-    } else {
+    } 
+    else if(valorSeleccionado == 'pasaporte'){
+      $.ajax({
+        type: "POST",
+        url: "envio_datos_formulario/",
+        data: JSON.stringify(datos),
+        dataType: "json",
+        headers: {
+          'X-CSRFToken': csrfToken,  // Incluir el token CSRF como encabezado
+        },
+        success: function (response) {
+          if(response.data == 0){
+            var error_envio = document.getElementById("error_envio")
+            error_envio.textContent = response.message;
+            error_envio.hidden = false;
+          }       
+          else{
+            window.location.replace('https://premiosenoturismochile.cl/votacion-exitosa/');
+
+          }
+        }
+      });
+
+    }
+    else {
       const labelError = document.getElementById("label-error");
       labelError.hidden = false;
       
