@@ -67,24 +67,25 @@ def cargar_datos_votacion(request):
     lista_regiones = []
 
     for region in regiones:
-        viñas_de_region = vinnas.filter(region=region)
-        viñas_data = list(zip([viña.nombre_vinna for viña in viñas_de_region],
-                              [viña.img_url for viña in viñas_de_region],
-                              [viña.id for viña in viñas_de_region]))
-        
-        random.shuffle(viñas_data)  # Reorganizar la lista de viñas aleatoriamente  
-        nombre_viñas, imagen_viñas, id_viñas = zip(*viñas_data)    
-        region_data = {
-            'id_region': region.id,
-            'region': region.nombre_regiones,
-            'viñas': nombre_viñas,
-            'imagenViñas': imagen_viñas,
-            'id_viñas': id_viñas,
-            'colorFondo': region.color,
-            'colorCirculo': region.color_circulo,
-            'colorInterior': region.color_interior
-        }
-        lista_regiones.append(region_data)
+        if region.regiones_vigencia == 1:
+            viñas_de_region = vinnas.filter(region=region)
+            viñas_data = list(zip([viña.nombre_vinna for viña in viñas_de_region],
+                                [viña.img_url for viña in viñas_de_region],
+                                [viña.id for viña in viñas_de_region]))
+            
+            random.shuffle(viñas_data)  # Reorganizar la lista de viñas aleatoriamente  
+            nombre_viñas, imagen_viñas, id_viñas = zip(*viñas_data)    
+            region_data = {
+                'id_region': region.id,
+                'region': region.nombre_regiones,
+                'viñas': nombre_viñas,
+                'imagenViñas': imagen_viñas,
+                'id_viñas': id_viñas,
+                'colorFondo': region.color,
+                'colorCirculo': region.color_circulo,
+                'colorInterior': region.color_interior
+            }
+            lista_regiones.append(region_data)
 
     random.shuffle(lista_regiones)  # Esto reorganizará las regiones de manera aleatoria también
     return JsonResponse(lista_regiones, safe=False)
