@@ -15,11 +15,9 @@ from django.http import HttpResponse, JsonResponse
 
 def index(request):
     # datos = WpqhUsers.objects.all()
-    regiones = RegionesTest.objects.all()
-    region_instance = RegionesTest.objects.get(id=1)
-    vinnas = VinnasTest.objects.all()
-    datoslist = list(regiones)
-    return render(request,'votacion/index.html',{'datos':datoslist})
+    votos_experiencia = RegistroVotosTest.objects.filter(tipo_registro='experienciaENO')
+    votos = votos_experiencia.count()
+    return render(request,'votacion/index.html',{'votos':votos})
 
 
 
@@ -62,6 +60,9 @@ def cargar_datos_votacion(request):
     regiones = RegionesTest.objects.all()
     vinnas = VinnasTest.objects.all()
     lista_regiones = []
+    votos_experiencia = RegistroVotosTest.objects.filter(tipo_registro='experienciaENO')
+    votos = votos_experiencia.count()
+    print(votos)
 
     for region in regiones:
         if region.regiones_vigencia == 1:
@@ -80,7 +81,8 @@ def cargar_datos_votacion(request):
                 'id_viñas': id_viñas,
                 'colorFondo': region.color,
                 'colorCirculo': region.color_circulo,
-                'colorInterior': region.color_interior
+                'colorInterior': region.color_interior,
+                'votos_cantidad_experiencia':votos
             }
             lista_regiones.append(region_data)
 

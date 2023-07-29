@@ -213,6 +213,15 @@ $(document).ready(function () {
     }
   });
 
+  const btnMostrar = $('#boton_mostrar');
+  const cantidad_Votos = $('#cantidad_votos');
+
+  // Manejar el evento click del botón
+  btnMostrar.click(function() {
+    // Alternar el atributo "hidden" al hacer clic (mostrar si está oculto, ocultar si está visible)
+    cantidad_Votos.attr('hidden', !cantidad_Votos.attr('hidden'));
+  });
+
 
 
 

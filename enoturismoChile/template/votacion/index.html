@@ -10,8 +10,17 @@
 {% endblock modal %}
 
 
-
-
+<div>
+  <button type="button" class="btn_mostrar_votos" id="boton_mostrar"><h3>
+    Mostrar cantidad de votos
+  </h3></button>
+<br>
+  <div id="cantidad">
+    <br>
+    <h3 id="cantidad_votos_en" style="font-family: 'Tajawal', sans-serif;" hidden>Votos totales Experiencia enoturistica:  {{ votos }}</h3>
+  </div>
+</div>
+<br><br>
 <form id="envio_formulario">
   {% csrf_token %}
   <div id="contenedor-vinnas" name="contenedor-vinnas">

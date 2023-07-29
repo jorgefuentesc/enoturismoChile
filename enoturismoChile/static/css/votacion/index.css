@@ -147,3 +147,9 @@
 .rd_color {
     accent-color: #C1632F;
 }
+
+.btn_mostrar_votos {
+    background: #C1632F 0% 0% no-repeat padding-box;
+    border-radius: 36px;
+    opacity: 1;
+}

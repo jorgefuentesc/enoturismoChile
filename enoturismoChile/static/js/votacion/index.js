@@ -36,6 +36,8 @@ $(document).ready(function () {
     success: function (response) {
 
       var vinnas = response.map(function (regionData) {
+        // var mostrar = document.getElementById('cantidad_votos_totales')
+        // mostrar.innerHTML = ` <h3 id = "votos_t" hidden> ${regionData.votos_cantidad_experiencia} </h3>` 
 
         // Acceder a los datos de cada región y sus viñas
         var contenedor_vinna = document.getElementById('contenedor-vinnas')
@@ -52,7 +54,7 @@ $(document).ready(function () {
       <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
         <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
         opacity: 1;">
-          <span>1</span>
+          <span></span>
         </label>
   
         <label style="padding-left: 50px;
@@ -74,7 +76,7 @@ $(document).ready(function () {
       <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
         <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
         opacity: 1;">
-          <span>2</span>
+          <span></span>
         </label>
   
         <label style="padding-left: 50px;
@@ -96,7 +98,7 @@ $(document).ready(function () {
       <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
         <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
         opacity: 1;">
-          <span>3</span>
+          <span></span>
         </label>
   
         <label style="padding-left: 50px;
@@ -213,10 +215,23 @@ $(document).ready(function () {
     }
   });
 
+ 
+
+  const botonMostrar = $('#boton_mostrar');
+  const cantidadVotos = $('#cantidad_votos_en');
+
+  // Manejar el evento click del botón
+  botonMostrar.click(function() {
+    // Alternar el atributo "hidden" al hacer clic (mostrar si está oculto, ocultar si está visible)
+    cantidadVotos.attr('hidden', !cantidadVotos.attr('hidden'));
+  });
+
 
 
 
 })
+
+
 
 
 
