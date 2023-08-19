@@ -179,7 +179,9 @@ $(document).ready(function () {
             error_envio.hidden = false;
           }       
           else{
-            window.location.replace('https://premiosenoturismochile.cl/votacion-exitosa/');
+            // window.location.replace('https://premiosenoturismochile.cl/votacion-exitosa/');
+            window.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
+
 
           }
         }

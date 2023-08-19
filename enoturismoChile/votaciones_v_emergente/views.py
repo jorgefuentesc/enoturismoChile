@@ -24,7 +24,7 @@ def index(request):
 
 
 
-def enviar_correo(remitente, asunto, mensaje, destinatario):
+def enviar_correo(remitente, asunto, mensaje_html, destinatario):
     # Configura la información del servidor SMTP de Gmail
     smtp_server = "smtp.gmail.com"
     smtp_port = 587  # El puerto de Gmail para TLS/STARTTLS
@@ -50,7 +50,7 @@ def enviar_correo(remitente, asunto, mensaje, destinatario):
     msg['Subject'] = asunto
 
     # Agrega el cuerpo del mensaje como parte del mensaje MIMEText
-    msg.attach(MIMEText(mensaje, 'plain', 'utf-8'))
+    msg.attach(MIMEText(mensaje_html, 'html', 'utf-8'))
 
     # Envía el correo electrónico
     server.sendmail(correo_gmail, destinatario, msg.as_string())
@@ -133,8 +133,19 @@ def envio_datos_formulario(request):
                     )
                 remitente_correo = correo
                 asunto_correo = '¡Gracias por votar!'
-                mensaje_correo = f'Hola {nombre},\n\nGracias por participar en la votación.\n\n¡Tu voto: {tipo_registro}, ha sido registrado exitosamente!\n\nAtentamente,\nEl equipo de Votaciones'
-                enviar_correo(remitente_correo, asunto_correo, mensaje_correo, correo)
+                mensaje_html = f"""
+                <html>
+                <head></head>
+                <body>
+                <p>Hola {nombre} !!!</p>
+                <p>Gracias por participar en la votación.</p>
+                <p>¡Tu voto: {tipo_registro}, ha sido registrado exitosamente!</p>
+                <p>Esperamos que esta experiencia haya sido de tu agrado!.</p>
+                <p>Atentamente,<br>El equipo de Votaciones</p>
+                </body>
+                </html>
+                """
+                enviar_correo(remitente_correo, asunto_correo, mensaje_html, correo)
                 mensaje = 'Votacion exitosa.'
                 estado = 1
         else:
