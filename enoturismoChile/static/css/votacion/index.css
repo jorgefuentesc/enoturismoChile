@@ -99,13 +99,14 @@
 }
 
 .titulo_encabezado_form {
-    width: 292px;
+    width: 100%;
     height: 53px;
     /* UI Properties */
     text-align: left;
     letter-spacing: 0.9px;
     color: #C1632F;
     opacity: 1;
+    block-size: auto;
 }
 
 .titulo_input {
