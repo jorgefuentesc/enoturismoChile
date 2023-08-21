@@ -57,13 +57,15 @@ $(document).ready(function () {
           <span></span>
         </label>
   
-        <label style="padding-left: 50px;
-        display: block;
-        margin: 0 !important;">
-          <p class="nombre">${regionData.viñas[0]} <span style="position: relative;">
-            <input type="radio" class="color-radio" name="${regionData.id_region}" value = "${regionData.id_viñas[0]}" style = "accent-color: ${regionData.colorCirculo};">
-          </span></p>
-          
+        <label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
+          <div style="display: contents;position: relative;">
+              <div style="position: absolute;bottom: -27px;">
+                  <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">${regionData.viñas[0]}</p>
+              </div>
+            <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class="">
+              <input type="radio" class="color-radio" name="${regionData.id_region}" value="${regionData.id_viñas[0]}" style="accent-color: #617072;">
+          </span>
+          </div>       
         </label>
       </div>      
     </section>     
@@ -79,13 +81,15 @@ $(document).ready(function () {
           <span></span>
         </label>
   
-        <label style="padding-left: 50px;
-        display: block;
-        margin: 0 !important;">
-          <p class="nombre">${regionData.viñas[1]} <span style="position: relative;">
-            <input type="radio" class="color-radio" name="${regionData.id_region}" value = "${regionData.id_viñas[1]}" style = "accent-color: ${regionData.colorCirculo};">
-          </span></p>
-          
+        <label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
+          <div style="display: contents;position: relative;">
+              <div style="position: absolute;bottom: -27px;">
+                  <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">${regionData.viñas[1]}</p>
+              </div>
+            <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class="">
+              <input type="radio" class="color-radio" name="${regionData.id_region}" value="${regionData.id_viñas[1]}" style="accent-color: #617072;">
+          </span>
+          </div>       
         </label>
       </div>      
     </section>     
@@ -101,14 +105,21 @@ $(document).ready(function () {
           <span></span>
         </label>
   
-        <label style="padding-left: 50px;
-        display: block;
-        margin: 0 !important;">
-          <p class="nombre">${regionData.viñas[2]} <span style="position: relative;">
-            <input type="radio" class="color-radio" name="${regionData.id_region}" value = "${regionData.id_viñas[2]}" style = "accent-color: ${regionData.colorCirculo};">
-          </span></p>
-          
+      
+        <label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
+          <div style="display: contents;position: relative;">
+              <div style="position: absolute;bottom: -27px;">
+                  <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">${regionData.viñas[2]}</p>
+              </div>
+            <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class="">
+              <input type="radio" class="color-radio" name="${regionData.id_region}" value="${regionData.id_viñas[2]}" style="accent-color: #617072;">
+          </span>
+          </div>       
         </label>
+
+
+
+
       </div>      
     </section>     
 
