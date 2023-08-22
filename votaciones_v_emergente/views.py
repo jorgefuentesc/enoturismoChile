@@ -114,15 +114,14 @@ def envio_datos_formulario(request):
 
         validacion_pasaporte = RegistroVotosTest.objects.filter(pasaporte=documento).first()
         validacion_correo = RegistroVotosTest.objects.filter(correo_electronico=correo).first()
-        registro = RegistroVotosTest.objects.filter(tipo_registro=tipo_registro,pasaporte = documento ).first()
+        registro = RegistroVotosTest.objects.filter(tipo_registro=tipo_registro,pasaporte = documento).first()
 
         pasaporte = validacion_pasaporte.pasaporte if validacion_pasaporte else None
         correoValidado = validacion_correo.correo_electronico if validacion_correo else None
         registro_validado = registro.tipo_registro if registro else None
         mensaje = ''
         estado = 0
-        print(registro_validado,"aquiiiiis")
-
+        print("acos")
         if len(viñas_id) >=3:
             if registro_validado and pasaporte:
                 estado = 0
@@ -138,6 +137,7 @@ def envio_datos_formulario(request):
                     )
                 remitente_correo = correo
                 asunto_correo = '¡Gracias por votar!'
+                # mensaje_html = "<h3>Gracias por votar {{  }}!!!</h3>"
                 mensaje_html = f"""
                 <html>
                 <head></head>
@@ -161,6 +161,7 @@ def envio_datos_formulario(request):
             'data': estado,
         }
         return JsonResponse(response_data)
+
     
 def cargar_mdl_vinna(request):
     vina = request.GET.get('id_vina')

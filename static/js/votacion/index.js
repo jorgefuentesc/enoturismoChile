@@ -94,9 +94,8 @@ $(document).ready(function () {
       </div>      
     </section>     
     <section class=" col-md-3" style="padding: 27px;">
-      <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img  onclick="fn_datos_para_mdl('${regionData.id_viñas[2]}')" src="${regionData.imagenViñas[2]}" style="width: 278px;
+      <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img class="clickable-image" onclick="fn_datos_para_mdl('${regionData.id_viñas[2]}')" src="${regionData.imagenViñas[2]}" style="width: 278px;
         height: 125px;
-        /* UI Properties */
         background: #FFFFFF 0% 0% no-repeat padding-box;
         border-radius: 62px;"  class="" type="text" data-parametro= ${regionData.id_viñas[2]}></div>
       <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
