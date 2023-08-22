@@ -145,8 +145,26 @@
     border-radius: 36px;
     opacity: 1;
 } 
+
+
+.hover-element {
+    background-color: #dab9b4;
+    color: white;
+    padding: 4px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.hover-element:hover {
+    background-color: #000;
+}
 /* .ajuste-tamanno {
     width: 70%;
     margin: auto;
 }*/
+
+
+
+
 

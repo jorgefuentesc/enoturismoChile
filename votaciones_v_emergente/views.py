@@ -142,11 +142,14 @@ def envio_datos_formulario(request):
                 <html>
                 <head></head>
                 <body>
-                <p>Hola {nombre} !!!</p>
-                <p>Gracias por participar en la votación.</p>
-                <p>¡Tu voto: {tipo_registro}, ha sido registrado exitosamente!</p>
-                <p>Esperamos que esta experiencia haya sido de tu agrado!.</p>
-                <p>Atentamente,<br>El equipo de Votaciones</p>
+                <p>Hola {nombre},</p>
+                <p>Gracias por participar en los premios Enoturismos Chile 2023.</p>
+                <p>¡Tus voto: {tipo_registro}, han sido registrado exitosamente!</p>
+                <p>Ya estas participando por distintas experiencias enoturisticas y canastas de productos regionales.</p>
+                <br>
+                <p>No olvides revisar las fechas de anuncio de ganadores en <a href="www.premiosenoturismochile.cl">www.premiosenoturismochile.cl</a></p>
+                <br>
+                <p>Atemtamente, equipo Premios Enoturismo Chile 2023</p>
                 </body>
                 </html>
                 """
@@ -154,7 +157,7 @@ def envio_datos_formulario(request):
                 mensaje = 'Votacion exitosa.'
                 estado = 1
         else:
-            mensaje = ' cantidad de votos insuficientes, por favor leer instrucciones. '
+            mensaje = ' Cantidad de votos insuficientes, debes seleccionar como minimo tres de diferentes empresas. '
             estado = 0
         response_data = {
             'message': mensaje,
