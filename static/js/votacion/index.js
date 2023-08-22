@@ -29,24 +29,26 @@ $(document).ready(function () {
       return S ? S - 1 : 'k';
     }
   }
+  var contenedor_vinna = document.getElementById('contenedor-vinnas')
+      contenedor_vinna.innerHTML = "<h1 style='font-size: 50px;'>asdasd</h1> <i class = 'fas fa-spin fa-spinner'> </i>"
   $.ajax({
     type: "GET",
     url: "cargar_datos_votacion/",
     // 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
     success: function (response) {
-
+      contenedor_vinna.innerHTML = ''
       var vinnas = response.map(function (regionData) {
         // var mostrar = document.getElementById('cantidad_votos_totales')
         // mostrar.innerHTML = ` <h3 id = "votos_t" hidden> ${regionData.votos_cantidad_experiencia} </h3>` 
 
         // Acceder a los datos de cada región y sus viñas
-        var contenedor_vinna = document.getElementById('contenedor-vinnas')
+        
         contenedor_vinna.innerHTML +=
           ` 
                 <section class="contenedor-b row" style=" background: ${regionData.colorFondo} ;">
     <h1 class="col-md-3" style= "color: #FFFFFF;">${regionData.region}</h1>
     <section class=" col-md-3" style="padding: 27px;">
-      <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img onclick="fn_datos_para_mdl('${regionData.id_viñas[0]}')" src="${regionData.imagenViñas[0]}" style="width: 278px;
+      <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img onclick="fn_datos_para_mdl('${regionData.id_viñas[0]}',this)" src="${regionData.imagenViñas[0]}" style="width: 278px;
         height: 125px;
         /* UI Properties */
         background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -70,7 +72,7 @@ $(document).ready(function () {
       </div>      
     </section>     
     <section class=" col-md-3" style="padding: 27px;">
-      <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img onclick="fn_datos_para_mdl('${regionData.id_viñas[1]}')" src="${regionData.imagenViñas[1]}" style="width: 278px;
+      <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img onclick="fn_datos_para_mdl('${regionData.id_viñas[1]}',this)" src="${regionData.imagenViñas[1]}" style="width: 278px;
         height: 125px;
         /* UI Properties */
         background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -94,7 +96,7 @@ $(document).ready(function () {
       </div>      
     </section>     
     <section class=" col-md-3" style="padding: 27px;">
-      <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img class="clickable-image" onclick="fn_datos_para_mdl('${regionData.id_viñas[2]}')" src="${regionData.imagenViñas[2]}" style="width: 278px;
+      <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img class="clickable-image" onclick="fn_datos_para_mdl('${regionData.id_viñas[2]}',this)" src="${regionData.imagenViñas[2]}" style="width: 278px;
         height: 125px;
         background: #FFFFFF 0% 0% no-repeat padding-box;
         border-radius: 62px;"  class="" type="text" data-parametro= ${regionData.id_viñas[2]}></div>
@@ -190,7 +192,7 @@ $(document).ready(function () {
           }       
           else{
             // window.location.replace('https://premiosenoturismochile.cl/votacion-exitosa/');
-            window.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
+            window.parent.location.href('https://premiosenoturismochile.cl/votacion-exitosa/');
 
 
           }

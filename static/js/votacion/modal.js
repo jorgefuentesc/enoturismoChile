@@ -1,7 +1,8 @@
 
-function fn_datos_para_mdl(p) {
+function fn_datos_para_mdl(p,e) {
     // Hacer lo que desees con el parámetro recibido (ID de la viña)
     id_vina = p
+    console.log(e,"ee")
     if (id_vina)
         $.ajax({
             type: "GET",
@@ -33,7 +34,10 @@ function fn_datos_para_mdl(p) {
 
                 var nuevo_contenido = response.nombre_vinna;
                 titulo_vinna_elemento.innerText = nuevo_contenido;
+                var modal = document.getElementById("mdl-vista_vinna");
                 $('#mdl-vista_vinna').modal('show');
+                modal.style.top = e.getBoundingClientRect().top + "px";
+                
 
             }
         });

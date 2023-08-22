@@ -44,7 +44,7 @@ $(document).ready(function () {
                 <section class="contenedor-b row" style=" background: ${regionData.colorFondo} ;">
     <h1 class="col-md-3" style= "color: #FFFFFF;">${regionData.region}</h1>
     <section class=" col-md-3" style="padding: 27px;">
-      <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img onclick="fn_datos_para_mdl('${regionData.id_viñas[0]}')" src="${regionData.imagenViñas[0]}" style="width: 278px;
+      <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img onclick="fn_datos_para_mdl('${regionData.id_viñas[0]}',this)" src="${regionData.imagenViñas[0]}" style="width: 278px;
         height: 125px;
         /* UI Properties */
         background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -68,7 +68,7 @@ $(document).ready(function () {
       </div>      
     </section>     
     <section class=" col-md-3" style="padding: 27px;">
-      <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img onclick="fn_datos_para_mdl('${regionData.id_viñas[1]}')" src="${regionData.imagenViñas[1]}" style="width: 278px;
+      <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img onclick="fn_datos_para_mdl('${regionData.id_viñas[1]}',this)" src="${regionData.imagenViñas[1]}" style="width: 278px;
         height: 125px;
         /* UI Properties */
         background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -92,7 +92,7 @@ $(document).ready(function () {
       </div>      
     </section>     
     <section class=" col-md-3" style="padding: 27px;">
-      <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img  onclick="fn_datos_para_mdl('${regionData.id_viñas[2]}')" src="${regionData.imagenViñas[2]}" style="width: 278px;
+      <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img  onclick="fn_datos_para_mdl('${regionData.id_viñas[2]}',this)" src="${regionData.imagenViñas[2]}" style="width: 278px;
         height: 125px;
         /* UI Properties */
         background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -183,7 +183,7 @@ $(document).ready(function () {
             error_envio.hidden = false;
           }       
           else{
-            window.location.replace('https://premiosenoturismochile.cl/votacion-exitosa/');
+            window.parent.location.href('https://premiosenoturismochile.cl/votacion-exitosa/');
 
           }
         }
