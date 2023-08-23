@@ -91,6 +91,7 @@
     background: #C1632F 0% 0% no-repeat padding-box;
     border-radius: 36px;
     opacity: 1;
+    border:0;
 }
 
 .titulo_encabezado_form {
