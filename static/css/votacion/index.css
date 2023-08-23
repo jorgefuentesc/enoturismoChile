@@ -160,6 +160,20 @@
 .hover-element:hover {
     background-color: #000;
 }
+
+.ui-dialog .ui-dialog-titlebar-close {
+    position: absolute;
+    background-image: url(https://premiosenoturismochile.cl/wp-content/uploads/2023/08/icono_cerrar.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #0066cc;
+    right: 0.3em;
+    top: 50%;
+    width: 21px;
+    margin: -10px 0 0 0;
+    padding: 1px;
+    height: 20px;
+}
 /* .ajuste-tamanno {
     width: 70%;
     margin: auto;
