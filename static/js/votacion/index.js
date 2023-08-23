@@ -31,6 +31,7 @@ $(document).ready(function () {
   }
   var contenedor_vinna = document.getElementById('contenedor-vinnas')
   contenedor_vinna.innerHTML = "<div style=\"display: flex; justify-content: center; align-items: center; height: 0px;\"><i class='fas fa-spin fa-spinner fa-10x'></i></div>";
+
   $.ajax({
     type: "GET",
     url: "cargar_datos_votacion/",
@@ -38,90 +39,88 @@ $(document).ready(function () {
     success: function (response) {
       contenedor_vinna.innerHTML = ''
       var vinnas = response.map(function (regionData) {
-        // var mostrar = document.getElementById('cantidad_votos_totales')
-        // mostrar.innerHTML = ` <h3 id = "votos_t" hidden> ${regionData.votos_cantidad_experiencia} </h3>` 
 
         // Acceder a los datos de cada región y sus viñas
-        
+        var contenedor_vinna = document.getElementById('contenedor-vinnas')
         contenedor_vinna.innerHTML +=
-          ` 
-                <section class="contenedor-b row" style=" background: ${regionData.colorFondo} ;">
-    <h1 class="col-md-3" style= "color: #FFFFFF;">${regionData.region}</h1>
-    <section class=" col-md-3" style="padding: 27px;">
-      <div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[0]}',this)" src="${regionData.imagenViñas[0]}" style="width: 200px;
-        height: 90px;
-        /* UI Properties */
-        
-        border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[0]}></div>
-      <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
-        <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
-        opacity: 1;">
-        <input type="radio" class="color-radio" name="${regionData.id_region}" value="${regionData.id_viñas[0]}" style="accent-color: #617072;margin-top:18px; margin-left:-10px; z-index:3000;">
-        </label>
-  
-        <label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
-          <div style="display: contents;position: relative;">
-              <div style="position: absolute;bottom: -27px;">
-                  <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">${regionData.viñas[0]}</p>
-              </div>
-            <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class="">       
-          </span>
-          </div>       
-        </label>
-      </div>      
-    </section>     
+        ` 
+        <section class="contenedor-b row" style=" background: ${regionData.colorFondo} ;">
+<h1 class="col-md-3" style= "color: #FFFFFF;">${regionData.region}</h1>
+<section class=" col-md-3" style="padding: 27px;">
+<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[0]}',this)" src="${regionData.imagenViñas[0]}" style="width: 200px;
+height: 90px;
+/* UI Properties */
 
-    <section class=" col-md-3" style="padding: 27px;">
-      <div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[1]}',this)" src="${regionData.imagenViñas[1]}" style="width: 200px;
-        height: 90px;
-        /* UI Properties */
-        
-        border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[1]}></div>
-      <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
-        <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
-        opacity: 1;">
-        <input type="radio" class="color-radio" name="${regionData.id_region}" value="${regionData.id_viñas[1]}" style="accent-color: #617072;margin-top:18px; margin-left:-10px; z-index:3000;">
-        </label>
-  
-        <label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
-          <div style="display: contents;position: relative;">
-              <div style="position: absolute;bottom: -27px;">
-                  <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">${regionData.viñas[1]}</p>
-              </div>
-            <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class="">       
-          </span>
-          </div>       
-        </label>
-      </div>      
-    </section>          
+border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[0]}></div>
+<div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
+<label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
+opacity: 1;">
+<input type="radio" class="color-radio" name="${regionData.id_region}" value="${regionData.id_viñas[0]}" style="accent-color: #617072;margin-top:18px; margin-left:-10px; z-index:3000;">
+</label>
 
-    <section class=" col-md-3" style="padding: 27px;">
-      <div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[2]}',this)" src="${regionData.imagenViñas[2]}" style="width: 200px;
-        height: 90px;
-        /* UI Properties */
-        
-        border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[2]}></div>
-      <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
-        <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
-        opacity: 1;">
-        <input type="radio" class="color-radio" name="${regionData.id_region}" value="${regionData.id_viñas[2]}" style="accent-color: #617072;margin-top:18px; margin-left:-10px; z-index:3000;">
-        </label>
-  
-        <label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
-          <div style="display: contents;position: relative;">
-              <div style="position: absolute;bottom: -27px;">
-                  <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">${regionData.viñas[2]}</p>
-              </div>
-            <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class="">       
-          </span>
-          </div>       
-        </label>
-      </div>      
-    </section>         
+<label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
+  <div style="display: contents;position: relative;">
+      <div style="position: absolute;bottom: -27px;">
+          <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">${regionData.viñas[0]}</p>
+      </div>
+    <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class="">       
+  </span>
+  </div>       
+</label>
+</div>      
+</section>     
+
+<section class=" col-md-3" style="padding: 27px;">
+<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[1]}',this)" src="${regionData.imagenViñas[1]}" style="width: 200px;
+height: 90px;
+/* UI Properties */
+
+border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[1]}></div>
+<div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
+<label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
+opacity: 1;">
+<input type="radio" class="color-radio" name="${regionData.id_region}" value="${regionData.id_viñas[1]}" style="accent-color: #617072;margin-top:18px; margin-left:-10px; z-index:3000;">
+</label>
+
+<label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
+  <div style="display: contents;position: relative;">
+      <div style="position: absolute;bottom: -27px;">
+          <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">${regionData.viñas[1]}</p>
+      </div>
+    <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class="">       
+  </span>
+  </div>       
+</label>
+</div>      
+</section>          
+
+<section class=" col-md-3" style="padding: 27px;">
+<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[2]}',this)" src="${regionData.imagenViñas[2]}" style="width: 200px;
+height: 90px;
+/* UI Properties */
+
+border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[2]}></div>
+<div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
+<label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
+opacity: 1;">
+<input type="radio" class="color-radio" name="${regionData.id_region}" value="${regionData.id_viñas[2]}" style="accent-color: #617072;margin-top:18px; margin-left:-10px; z-index:3000;">
+</label>
+
+<label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
+  <div style="display: contents;position: relative;">
+      <div style="position: absolute;bottom: -27px;">
+          <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">${regionData.viñas[2]}</p>
+      </div>
+    <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class="">       
+  </span>
+  </div>       
+</label>
+</div>      
+</section>         
 
 
-    </section>            
-                `
+</section>            
+        `
       });
     },
     error: function (error) {
@@ -193,9 +192,7 @@ $(document).ready(function () {
               error_envio.hidden = false;
             }       
             else{
-              // window.location.replace('https://premiosenoturismochile.cl/votacion-exitosa/');
-              // window.parent.location.href('https://premiosenoturismochile.cl/votacion-exitosa/');
-              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
+              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa-2/';
   
             }
           }
@@ -226,7 +223,7 @@ $(document).ready(function () {
               error_envio.hidden = false;
             }       
             else{
-              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
+              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa-2/';
   
             }
           }
@@ -242,23 +239,19 @@ $(document).ready(function () {
     }
   });
 
- 
-
-  const botonMostrar = $('#boton_mostrar');
-  const cantidadVotos = $('#cantidad_votos_en');
+  const btnMostrar = $('#boton_mostrar');
+  const cantidad_Votos = $('#cantidad_votos');
 
   // Manejar el evento click del botón
-  botonMostrar.click(function() {
+  btnMostrar.click(function() {
     // Alternar el atributo "hidden" al hacer clic (mostrar si está oculto, ocultar si está visible)
-    cantidadVotos.attr('hidden', !cantidadVotos.attr('hidden'));
+    cantidad_Votos.attr('hidden', !cantidad_Votos.attr('hidden'));
   });
 
 
 
 
 })
-
-
 
 
 

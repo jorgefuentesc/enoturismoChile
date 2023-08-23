@@ -9,13 +9,6 @@ function fn_datos_para_mdl(p,e) {
             data: { id_vina: id_vina },
             dataType: "json",
             success: function (response) {
-                var link_instagram = response.link_instagram;
-                var link_facebook = response.link_facebook;
-                var link_pagina = response.link_pagina;
-                var link_video = response.link_video;
-
-                console.log("Instagram: ",link_instagram,"n, facebook: ", link_facebook, "n, pagina: ", link_pagina,"n, video: ", link_video)
-
                 var titulo_vinna_elemento = document.getElementById('titulo-vinna-mdl');
                 var descripcion_vinna_elemento = document.getElementById('descripcion_vinna');
                 var titulo_superior_vinna_elemento = document.getElementById('titulo_superior');
@@ -33,39 +26,6 @@ function fn_datos_para_mdl(p,e) {
                 src="${img_vinna}" alt="">
                 `;
 
-                var contenedor_logos = document.getElementById('contenedor_logos');
-                 contenedor_logos.innerHTML = 
-                `
-
-                `
-                if (link_instagram != ''){
-                    contenedor_logos.innerHTML+= 
-                    `
-                    <a id="direccion-instagram" href="https://www.facebook.com/centroturisticocoopcapel?mibextid=LQQJ4d"><img src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/insta.png" alt=""></a>
-                    `
-                }
-                if (link_facebook != ''){
-                    contenedor_logos.innerHTML+= 
-                    `
-                    <a id="direccion-facebook" href=""><img src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/facebook.png" alt=""></a>
-
-                    `
-                }
-                if (link_pagina != ''){
-                    contenedor_logos.innerHTML+= 
-                    `
-                    <a id="direccion-pagina" href=""><img src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/pagina.png" alt=""></a>
-
-                    `
-                }
-                if (link_video != ''){
-                    contenedor_logos.innerHTML+= 
-                    `
-                    <a id="direccion-video" href=""><img src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/video.png" alt=""></a>
-
-                    `
-                }
-
                 // Cambiar el contenido del elemento
 
                 descripcion_vinna_elemento.innerText = descripcion_vinna;
@@ -73,6 +33,43 @@ function fn_datos_para_mdl(p,e) {
 
                 var nuevo_contenido = response.nombre_vinna;
                 titulo_vinna_elemento.innerText = nuevo_contenido;
+
+
+                var contenedor_logos = document.getElementById('contenedor_logos');
+                 contenedor_logos.innerHTML = 
+                `
+
+                `
+
+                if (link_instagram != ''){
+                    contenedor_logos.innerHTML+= 
+                    `
+                    <a  id="direccion-instagram" onclick="fn_redir('${link_instagram}')" ><img src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/insta.png" alt=""></a>
+                    `
+                }
+                if (link_facebook != ''){
+                    contenedor_logos.innerHTML+= 
+                    `
+                    <a id="direccion-facebook" onclick="fn_redir('${link_facebook}')"><img src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/facebook.png" alt=""></a>
+
+                    `
+                }
+                if (link_pagina != ''){
+                    contenedor_logos.innerHTML+= 
+                    `
+                    <a id="direccion-pagina" onclick="fn_redir('${link_pagina}')"><img src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/pagina.png" alt=""></a>
+
+                    `
+                }
+                if (link_video != ''){
+                    contenedor_logos.innerHTML+= 
+                    `
+                    <a id="direccion-video" onclick="fn_redir('${link_video}')"><img src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/video.png" alt=""></a>
+
+                    `
+                }
+
+
                 var modal = document.getElementById("mdl-vista_vinna");
                 $('#mdl-vista_vinna').modal('show');
                 modal.style.top = e.getBoundingClientRect().top + "px";
@@ -82,7 +79,9 @@ function fn_datos_para_mdl(p,e) {
 
 }
 
-
+function fn_redir(parametro){
+    window.open(parametro , "blank") 
+}
 
 
 

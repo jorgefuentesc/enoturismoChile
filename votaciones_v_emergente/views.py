@@ -125,7 +125,7 @@ def envio_datos_formulario(request):
         if len(viñas_id) >=3:
             if registro_validado and pasaporte:
                 estado = 0
-                mensaje = ' Voto registrado '
+                mensaje = ' el rut asociado al voto ya fue registrado anteriormente '
             else:
                 for i in range(len(viñas_id)):
                     registro = RegistroVotosTest.objects.create(
@@ -221,9 +221,9 @@ def cargar_mdl_vinna(request):
     img_vinna = vinna.vinna_url_img_md if vinna else None
 
     link_instagram = vinna.link_instagram if vinna.link_instagram else ''
-    link_facebook = vinna.link_facebook if vinna.link_facebook else ''
-    link_pagina = vinna.pagina_web if vinna.pagina_web else ''
-    link_video = vinna.link_video if vinna.link_video else ''
+    link_facebook = vinna.link_facebook if vinna else ''
+    link_pagina = vinna.pagina_web if vinna else ''
+    link_video = vinna.link_video if vinna else ''
     response = {'nombre_vinna': nombre_vinna,
                 'titulo_vinna': titulo_vinna,
                 'descripcion_vinna': descripcion_vinna,
