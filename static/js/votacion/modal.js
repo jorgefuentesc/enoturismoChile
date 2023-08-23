@@ -1,7 +1,6 @@
 function fn_datos_para_mdl(p,e) {
     // Hacer lo que desees con el parámetro recibido (ID de la viña)
     id_vina = p
-    console.log(e,"ee")
     if (id_vina)
         $.ajax({
             type: "GET",
