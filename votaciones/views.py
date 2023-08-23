@@ -142,18 +142,64 @@ def envio_datos_formulario(request):
                 # mensaje_html = "<h3>Gracias por votar {{  }}!!!</h3>"
                 mensaje_html = f"""
                 <html>
-                <head></head>
-                <body>
-                <p>Hola {nombre},</p>
-                <p>Gracias por participar en los premios Enoturismos Chile 2023.</p>
-                <p>¡Tus voto: {tipo_registro}, han sido registrado exitosamente!</p>
-                <p>Ya estas participando por distintas experiencias enoturisticas y canastas de productos regionales.</p>
-                <br>
-                <p>No olvides revisar las fechas de anuncio de ganadores en <a href="www.premiosenoturismochile.cl">www.premiosenoturismochile.cl</a></p>
-                <br>
-                <p>Atemtamente, equipo Premios Enoturismo Chile 2023</p>
-                </body>
-                </html>
+	<head>
+		<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
+	</head>
+<body>
+<table align="center" style="background:#efefef; width: 100%;">
+	<td>
+
+	<table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif">
+	<tr><td><hr style="height: 1px; width: 695px; background-color: #888888; margin: 0px; border: 0px;"></td></tr>
+	</table>
+	    
+<table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif; background-color: #000;">
+<tr>
+	<td style="background-color: rgb(255, 251, 251); padding: 30px; margin-bottom: 30px;"><center><img alt="imagen" src="https://premiosenoturismochile.cl/wp-content/uploads/2023/04/Nuevo-logo-2023-naranjo-1024x572.png" width="150" height="84" style="display: block; border: 0px; margin: 0px;"/></center></td>
+	
+</tr>
+<tr><td><hr style="height: 0px; width: 695px; background-color: #888888; margin: 0px; border: 0px;"></td></tr>
+        </table>
+		
+	<table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-seri">
+		<tr style="background-color: #fff;">
+		  <td height="100">
+		  <ul style="list-style-type:none; margin:0px; border:none;">
+		  <li style=" font:museo; font-weight: bold; text-align: justify; font-size:18px; color:#005E7C; padding:20px 40px 0px 0px; margin:0px; line-height: 20px;"><br>Hola {nombre}</li>
+		<li style="font:Panton-regular; text-align: justify; font-size:14px; color:#454545; padding:15px 40px 0px 0px; margin:0px; line-height: 20px;">
+			Gracias por participar en la votación de los Premios Enoturismo Chile 2023.
+			<br><br>
+			¡Tus preferencias para la categoría, Mejor Experiencia Enoturistica, han sido registradas exitosamente!.
+			<br><br>
+			Qué suerte, desde ahora ya te encuentras participando para acceder a una de las fabulosas Experiencias Enoturísticas o Canastas de Productos Regionales que se sortearán en los próximos días.
+			<br><br>
+			No olvides estar atentos a nuestras redes sociales y enterarte de los resultados de los ganadores de los <a href="https://premiosenoturismochile.cl">#premiosenoturismochile2023</a>.
+			<br><br>
+			Atentamente, equipo Enoturismo Chile. 
+			<br><br>
+			<a href="https://premiosenoturismochile.cl">www.premiosenoturismochile.cl</a>
+			<br><br>
+			<a href="https://www.enoturismochile.cl">www.enoturismochile.cl</a>
+		</li>
+		<br><br>
+		</ul>
+		  </td>
+		</tr>
+		  </table>
+		
+		<table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif; background:#efefef;">
+  		<tr>
+			<td width="274" style="text-align:center;"><img alt="utem" src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/footer2-e1692756440961.jpg" /></td>
+			
+		</tr>
+		</table>					
+			 
+					
+		
+	</table>
+</body>
+</html>
+
                 """
                 enviar_correo(remitente_correo, asunto_correo, mensaje_html, correo)
                 mensaje = 'Votacion exitosa.'
@@ -174,9 +220,19 @@ def cargar_mdl_vinna(request):
     titulo_vinna = vinna.vinna_titulo if vinna else None
     descripcion_vinna = vinna.vinna_descripcion if vinna else None
     img_vinna = vinna.vinna_url_img_md if vinna else None
+
+    link_instagram = vinna.link_instagram if vinna.link_instagram else ''
+    link_facebook = vinna.link_facebook if vinna.link_facebook else ''
+    link_pagina = vinna.pagina_web if vinna.pagina_web else ''
+    link_video = vinna.link_video if vinna.link_video else ''
+
     response = {'nombre_vinna': nombre_vinna,
                 'titulo_vinna': titulo_vinna,
                 'descripcion_vinna': descripcion_vinna,
                 'img_vinna': img_vinna,
+                'link_instagram': link_instagram,
+                'link_facebook': link_facebook,
+                'link_pagina': link_pagina,
+                'link_video': link_video,
                 }
     return JsonResponse(response)

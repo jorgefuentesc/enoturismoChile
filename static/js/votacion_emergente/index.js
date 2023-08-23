@@ -47,8 +47,8 @@ $(document).ready(function () {
         <section class="contenedor-b row" style=" background: ${regionData.colorFondo} ;">
 <h1 class="col-md-3" style= "color: #FFFFFF;">${regionData.region}</h1>
 <section class=" col-md-3" style="padding: 27px;">
-<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[0]}',this)" src="${regionData.imagenViñas[0]}" style="width: 278px;
-height: 125px;
+<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[0]}',this)" src="${regionData.imagenViñas[0]}" style="width: 200px;
+height: 90px;
 /* UI Properties */
 
 border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[0]}></div>
@@ -71,8 +71,8 @@ opacity: 1;">
 </section>     
 
 <section class=" col-md-3" style="padding: 27px;">
-<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[1]}',this)" src="${regionData.imagenViñas[1]}" style="width: 278px;
-height: 125px;
+<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[1]}',this)" src="${regionData.imagenViñas[1]}" style="width: 200px;
+height: 90px;
 /* UI Properties */
 
 border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[1]}></div>
@@ -95,8 +95,8 @@ opacity: 1;">
 </section>          
 
 <section class=" col-md-3" style="padding: 27px;">
-<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[2]}',this)" src="${regionData.imagenViñas[2]}" style="width: 278px;
-height: 125px;
+<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[2]}',this)" src="${regionData.imagenViñas[2]}" style="width: 200px;
+height: 90px;
 /* UI Properties */
 
 border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[2]}></div>
@@ -192,7 +192,7 @@ opacity: 1;">
               error_envio.hidden = false;
             }       
             else{
-              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
+              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa-2/';
   
             }
           }
@@ -223,7 +223,7 @@ opacity: 1;">
               error_envio.hidden = false;
             }       
             else{
-              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
+              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa-2/';
   
             }
           }

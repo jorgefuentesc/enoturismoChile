@@ -45,6 +45,11 @@ class VinnasTest(models.Model):
     vinna_descripcion = models.TextField(max_length=120,default='Aqui va una breve descripción de la viña, ejemplo donde esta ubicada y demas')
     vinna_titulo = models.CharField(max_length=120,default='Titulo viña')
     categoria = models.IntegerField(default=0)
+
+    link_instagram = models.TextField(max_length=200)
+    link_facebook = models.TextField(max_length=200)
+    pagina_web = models.TextField(max_length=200)
+    link_video = models.TextField(max_length=200)
     class Meta:
         managed = True
         db_table = "viñas_test"

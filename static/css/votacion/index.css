@@ -41,7 +41,7 @@
     height: 50px;
     position: relative;
     margin: 0 10px !important;
-    width: 60% !important;
+    width: 72% !important;
     color: #CADBDD;
 
 
@@ -73,13 +73,13 @@
 }
 
 .formulario-fondo {
-    height: 716px;
+    height: 500px;
     background: #E0AC90 0% 0% no-repeat padding-box;
     opacity: 1;
 }
 
 .formulario-input {
-    height: 71px;
+    height: 42px;
     background: #F7ECE7 0% 0% no-repeat padding-box;
     border-radius: 36px;
     opacity: 1;
@@ -105,7 +105,7 @@
 
 .titulo_input {
     width: 191px;
-    height: 41px;
+    height: 20px;
     text-align: left;
     letter-spacing: 0.75px;
     color: #C1632F;

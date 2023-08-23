@@ -11,7 +11,7 @@
 
 
 <div>
-  <button type="button" class="btn_mostrar_votos" id="boton_mostrar"><h3>
+  <button type="button" class="btn " id="boton_mostrar" style="background-color: #E58341 !important; border-color: #E58341 !important; color: #fff;"><h3>
     Mostrar cantidad de votos
   </h3></button>
 <br>
@@ -49,17 +49,17 @@
             <h3 class="card-title titulo_encabezado_form">Ingresa tus datos</h3>
             <br>
             <div class="form-group ">
-              <label class="titulo_input" for="documento">CI o Pasaporte:</label>
-              <input type="text" class="form-control formulario-input "  required oninput="checkRut(this)" id="documento"
-                placeholder="12.345.678-9" >
-              <label id="label-error" style="color: red;" hidden>Ingrese un run valido</label>
               <div id="radioGroup" style="margin-top: 4px;margin-top: 4px;
-            padding-left: 2%;float: right;">
+            padding-left: 2%;">
                 <label for="run" style="color: #C1632F;"> Run: </label>
                 <input type="radio" class="radio-input rd_color" name="inp_tipo_id" id="run" value="run" checked>
                 <label for="pasaporte" style="color: #C1632F;"> Pasaporte: </label>
                 <input type="radio" class="radio-input rd_color" name="inp_tipo_id" id="pasaporte" value="pasaporte">
               </div>
+              <input type="text" class="form-control formulario-input "  required oninput="checkRut(this)" id="documento"
+                placeholder="12.345.678-9" >
+              <label id="label-error" style="color: red;" hidden>Ingrese un run valido</label>
+              
             </div>
             <div class="form-group ">
               <label class="titulo_input" for="correo">Nombre:</label>
