@@ -1,5 +1,4 @@
 from django.db import models
-
 # class WpqhUsers(models.Model):
 #     id = models.BigAutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
 #     user_login = models.CharField(max_length=60)
@@ -46,10 +45,10 @@ class VinnasTest(models.Model):
     vinna_titulo = models.CharField(max_length=120,default='Titulo viña')
     categoria = models.IntegerField(default=0)
 
-    link_instagram = models.TextField(max_length=200)
-    link_facebook = models.TextField(max_length=200)
-    pagina_web = models.TextField(max_length=200)
-    link_video = models.TextField(max_length=200)
+    link_instagram = models.TextField(max_length=200,default='')
+    link_facebook = models.TextField(max_length=200,default='')
+    pagina_web = models.TextField(max_length=200,default='')
+    link_video = models.TextField(max_length=200,default='')
     class Meta:
         managed = True
         db_table = "viñas_test"
@@ -62,6 +61,8 @@ class RegistroVotosTest(models.Model):
     pasaporte = models.CharField(max_length=120, default='1111111')
     vinna = models.ForeignKey(VinnasTest,blank=True,null=True, on_delete=models.CASCADE)
     region = models.ForeignKey(RegionesTest,blank=True,null=True, on_delete=models.CASCADE)
+    fecha_voto_act = models.CharField(max_length=120, default="23/08/2023")
+    hora_voto_act = models.CharField(max_length=120,default='-')
     class Meta:
         managed = True
         db_table = "registro_votos_test"

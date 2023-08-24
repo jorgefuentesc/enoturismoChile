@@ -82,6 +82,8 @@ function fn_datos_para_mdl(p,e) {
 function fn_redir(parametro){
     window.open(parametro , "blank") 
 }
-
+function fn_cerrar_mdl(){
+    $('#mdl-vista_vinna').modal('hide');
+}
 
 

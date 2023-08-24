@@ -192,7 +192,7 @@ opacity: 1;">
               error_envio.hidden = false;
             }       
             else{
-              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa-2/';
+              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
   
             }
           }
@@ -223,7 +223,7 @@ opacity: 1;">
               error_envio.hidden = false;
             }       
             else{
-              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa-2/';
+              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
   
             }
           }
@@ -239,13 +239,14 @@ opacity: 1;">
     }
   });
 
-  const btnMostrar = $('#boton_mostrar');
-  const cantidad_Votos = $('#cantidad_votos');
+
 
   // Manejar el evento click del botón
-  btnMostrar.click(function() {
+  $('#boton_mostrar').click(function() {
     // Alternar el atributo "hidden" al hacer clic (mostrar si está oculto, ocultar si está visible)
-    cantidad_Votos.attr('hidden', !cantidad_Votos.attr('hidden'));
+    $('#cantidad_votos_en').prop('hidden', function(index, value) {
+      return !value;
+  });
   });
 
 

@@ -11,16 +11,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='vinnastest',
-            name='categoria',
-            field=models.IntegerField(default=0),
-        ),
-        migrations.AddField(
-            model_name='vinnastest',
-            name='region',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='votaciones.RegionesTest'),
-        ),
+
         migrations.AlterField(
             model_name='vinnastest',
             name='vinna_descripcion',
