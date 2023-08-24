@@ -4,6 +4,8 @@ from django.shortcuts import render
 import json
 import random
 import smtplib
+from smtplib import *
+
 
 import pytz
 from django.utils import timezone
@@ -28,39 +30,29 @@ def index(request):
 
 
 
-def enviar_correo(remitente, asunto, mensaje_html, destinatario):
-    # Configura la información del servidor SMTP de Gmail
-    smtp_server = "smtp.gmail.com"
-    smtp_port = 587  # El puerto de Gmail para TLS/STARTTLS
+def enviar_correo( asunto, mensaje_html, destinatario):
+    try:
+        smtp_server = "mail.premiosenoturismo.cl"
+        smtp_port = 587  
+        correo_gmail = "no-responder@premiosenoturismochile.cl"
+        contrasena_gmail = "}$cn#A_X3[Lq"
+        if not contrasena_gmail:
+            print("no config")
+            raise ValueError("La variable de entorno GMAIL_APP_PASSWORD no está configurada.")
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(correo_gmail, contrasena_gmail)
+        print("despues server login")
+        msg = MIMEMultipart()
+        msg['From'] = correo_gmail
+        msg['To'] = destinatario
+        msg['Subject'] = asunto
+        msg.attach(MIMEText(mensaje_html, 'html', 'utf-8'))
+        server.sendmail(correo_gmail, destinatario, msg.as_string())
+        server.quit() 
 
-    correo_gmail = "enoturismotest@gmail.com"
-    contrasena_gmail = "dbdffubzpprpwhfk"
-    # contrasena_gmail = "Testeno123"
-
-    if not contrasena_gmail:
-        raise ValueError("La variable de entorno GMAIL_APP_PASSWORD no está configurada.")
-
-    # Crea una conexión segura con el servidor SMTP
-    server = smtplib.SMTP(smtp_server, smtp_port)
-    server.starttls()
-
-    # Inicia sesión en tu cuenta de Gmail con la "Contraseña de aplicaciones"
-    server.login(correo_gmail, contrasena_gmail)
-
-    # Crea el mensaje de correo electrónico en formato MIMEText
-    msg = MIMEMultipart()
-    msg['From'] = remitente
-    msg['To'] = destinatario
-    msg['Subject'] = asunto
-
-    # Agrega el cuerpo del mensaje como parte del mensaje MIMEText
-    msg.attach(MIMEText(mensaje_html, 'html', 'utf-8'))
-
-    # Envía el correo electrónico
-    server.sendmail(correo_gmail, destinatario, msg.as_string())
-
-    # Cierra la conexión con el servidor SMTP
-    server.quit() 
+    except SMTPResponseException as e:
+        print(e)
 
 def cargar_datos_votacion(request):
     regiones = RegionesTest.objects.all()
@@ -219,7 +211,7 @@ def envio_datos_formulario(request):
 </html>
 
                 """
-                enviar_correo(remitente_correo, asunto_correo, mensaje_html, correo)
+                enviar_correo(asunto_correo, mensaje_html, correo)
                 mensaje = 'Votacion exitosa.'
                 estado = 1
         else:

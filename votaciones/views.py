@@ -1,6 +1,7 @@
 import json
 import random
 import smtplib
+from smtplib import *
 
 
 import pytz
@@ -29,39 +30,31 @@ def index(request):
 
 
 
-def enviar_correo(remitente, asunto, mensaje_html, destinatario):
-    # Configura la información del servidor SMTP de Gmail
-    smtp_server = "smtp.gmail.com"
-    smtp_port = 587  # El puerto de Gmail para TLS/STARTTLS
+def enviar_correo( asunto, mensaje_html, destinatario):
+    try:
+        smtp_server = "mail.premiosenoturismo.cl"
+        smtp_port = 587  
+        correo_gmail = "no-responder@premiosenoturismochile.cl"
+        contrasena_gmail = "}$cn#A_X3[Lq"
+        if not contrasena_gmail:
+            print("no config")
+            raise ValueError("La variable de entorno GMAIL_APP_PASSWORD no está configurada.")
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(correo_gmail, contrasena_gmail)
+        print("despues server login")
+        msg = MIMEMultipart()
+        msg['From'] = correo_gmail
+        msg['To'] = destinatario
+        msg['Subject'] = asunto
+        msg.attach(MIMEText(mensaje_html, 'html', 'utf-8'))
+        server.sendmail(correo_gmail, destinatario, msg.as_string())
+        server.quit() 
 
-    correo_gmail = "enoturismotest@gmail.com"
-    contrasena_gmail = "dbdffubzpprpwhfk"
-    # contrasena_gmail = "Testeno123"
+    except SMTPResponseException as e:
+        print(e)
 
-    if not contrasena_gmail:
-        raise ValueError("La variable de entorno GMAIL_APP_PASSWORD no está configurada.")
-
-    # Crea una conexión segura con el servidor SMTP
-    server = smtplib.SMTP(smtp_server, smtp_port)
-    server.starttls()
-
-    # Inicia sesión en tu cuenta de Gmail con la "Contraseña de aplicaciones"
-    server.login(correo_gmail, contrasena_gmail)
-
-    # Crea el mensaje de correo electrónico en formato MIMEText
-    msg = MIMEMultipart()
-    msg['From'] = remitente
-    msg['To'] = destinatario
-    msg['Subject'] = asunto
-
-    # Agrega el cuerpo del mensaje como parte del mensaje MIMEText
-    msg.attach(MIMEText(mensaje_html, 'html', 'utf-8'))
-
-    # Envía el correo electrónico
-    server.sendmail(correo_gmail, destinatario, msg.as_string())
-
-    # Cierra la conexión con el servidor SMTP
-    server.quit() 
+    
 
 def cargar_datos_votacion(request):
     regiones = RegionesTest.objects.all()
@@ -145,10 +138,13 @@ def envio_datos_formulario(request):
         estado = 0
         print("acos")
         if len(viñas_id) >=3:
+            print("largo")
             if registro_validado and pasaporte:
                 estado = 0
                 mensaje = ' el rut asociado al voto ya fue registrado anteriormente '
+                print("validacion rut ")
             else:
+                print("else validacion rut ")
                 for i in range(len(viñas_id)):
                     registro = RegistroVotosTest.objects.create(
                         tipo_registro='experienciaENO',
@@ -160,6 +156,7 @@ def envio_datos_formulario(request):
                         hora_voto_act=hora_formateada,
 
                     )
+                print("agredecimiento ")
                 remitente_correo = correo
                 asunto_correo = '¡Gracias por votar!'
                 # mensaje_html = "<h3>Gracias por votar {{  }}!!!</h3>"
@@ -224,7 +221,11 @@ def envio_datos_formulario(request):
 </html>
 
                 """
-                enviar_correo(remitente_correo, asunto_correo, mensaje_html, correo)
+                try: 
+                    print("enviado")
+                    enviar_correo(asunto_correo, mensaje_html, correo)
+                except Exception as e:
+                    print(e)
                 mensaje = 'Votacion exitosa.'
                 estado = 1
         else:
