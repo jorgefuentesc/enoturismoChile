@@ -1,7 +1,7 @@
 
 
 $(document).ready(function () {
-console.log("ENTRA EN INDEX-VOTACION")
+  console.log("ENTRA EN INDEX-VOTACION")
 
   function getCookie(name) {
     var value = "; " + document.cookie;
@@ -32,7 +32,7 @@ console.log("ENTRA EN INDEX-VOTACION")
   var contenedor_vinna = document.getElementById('contenedor-vinnas')
   contenedor_vinna.innerHTML = "<div style=\"display: flex; justify-content: center; align-items: center; height: 0px;\"><i class='fas fa-spin fa-spinner fa-10x'></i></div>";
 
-  
+
   $.ajax({
     type: "GET",
     url: "cargar_datos_votacion/",
@@ -44,7 +44,7 @@ console.log("ENTRA EN INDEX-VOTACION")
         // Acceder a los datos de cada región y sus viñas
         var contenedor_vinna = document.getElementById('contenedor-vinnas')
         contenedor_vinna.innerHTML +=
-        ` 
+          ` 
         <section class="contenedor-b row" style=" background: ${regionData.colorFondo} ;">
 <h1 class="col-md-3" style= "color: #FFFFFF;">${regionData.region}</h1>
 <section class=" col-md-3" style="padding: 27px;">
@@ -150,22 +150,22 @@ opacity: 1;">
     const radioButtons = document.getElementsByName('inp_tipo_id');
     let valorSeleccionado;
     for (const radioButton of radioButtons) {
-        if (radioButton.checked) {
-            valorSeleccionado = radioButton.value;
-            break; // Salir del bucle cuando encuentre el seleccionado
-        }
+      if (radioButton.checked) {
+        valorSeleccionado = radioButton.value;
+        break; // Salir del bucle cuando encuentre el seleccionado
+      }
     }
 
     // Mostrar el valor seleccionado en la consola
     var csrfToken = getCookie('csrftoken');
 
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     var documento = $("#documento").val();
     // Obtener los valores de los campos de entrada del formulario
     var nombre = $("#nombre").val();
-    var correo = $("#correo").val().replace(' ','');
+    var correo = $("#correo").val().replace(' ', '');
 
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const isValidEmail = emailRegex.test(correo);
 
     var datos = {
@@ -175,15 +175,15 @@ opacity: 1;">
       opciones: valoresSeleccionados,
     };
 
-    if(isValidEmail){
-      if (Fn.validaRut($("#documento").val()) && valorSeleccionado == 'run'  ) {
-        if(nombre == null || nombre == undefined || nombre == ''){
+    if (isValidEmail) {
+      if (Fn.validaRut($("#documento").val()) && valorSeleccionado == 'run') {
+        if (nombre == null || nombre == undefined || nombre == '') {
           var nombreVacio = document.getElementById('label-error_nombre');
           nombreVacio.removeAttribute('hidden');
-        } else if (correo == null || correo == undefined || correo == '' ){
+        } else if (correo == null || correo == undefined || correo == '') {
           var correoVacio = document.getElementById('label-error_correo');
           correoVacio.removeAttribute('hidden');
-        }else{
+        } else {
           $.ajax({
             type: "POST",
             url: "envio_datos_formulario/",
@@ -193,28 +193,28 @@ opacity: 1;">
               'X-CSRFToken': csrfToken,  // Incluir el token CSRF como encabezado
             },
             success: function (response) {
-              if(response.data == 0){
+              if (response.data == 0) {
                 var error_envio = document.getElementById("error_envio")
                 error_envio.textContent = response.message;
                 error_envio.hidden = false;
-              }       
-              else{
+              }
+              else {
                 window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
-    
+
               }
             }
           });
         }
-        
-      } 
-      else if(valorSeleccionado == 'pasaporte'){
-        if(nombre == null || nombre == undefined || nombre == ''){
+
+      }
+      else if (valorSeleccionado == 'pasaporte') {
+        if (nombre == null || nombre == undefined || nombre == '') {
           var nombreVacio = document.getElementById('label-error_nombre');
           nombreVacio.removeAttribute('hidden');
-        } else if (correo == null || correo == undefined || correo == ''){
+        } else if (correo == null || correo == undefined || correo == '') {
           var correoVacio = document.getElementById('label-error_correo');
           correoVacio.removeAttribute('hidden');
-        }else{
+        } else {
           $.ajax({
             type: "POST",
             url: "envio_datos_formulario/",
@@ -224,39 +224,39 @@ opacity: 1;">
               'X-CSRFToken': csrfToken,  // Incluir el token CSRF como encabezado
             },
             success: function (response) {
-              if(response.data == 0){
+              if (response.data == 0) {
                 var error_envio = document.getElementById("error_envio")
                 error_envio.textContent = response.message;
                 error_envio.hidden = false;
-              }       
-              else{
+              }
+              else {
                 window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
-    
+
               }
             }
           });
         }
-        
-  
+
+
       }
       else {
         const labelError = document.getElementById("label-error");
         labelError.hidden = false;
-        
+
       }
-    }else{
+    } else {
       var correoVacio = document.getElementById('label-error_correo');
-          correoVacio.removeAttribute('hidden');
+      correoVacio.removeAttribute('hidden');
     }
-    
+
   });
 
 
 
   // Manejar el evento click del botón
-  $('#boton_mostrar').click(function() {
+  $('#boton_mostrar').click(function () {
     // Alternar el atributo "hidden" al hacer clic (mostrar si está oculto, ocultar si está visible)
-    $('#cantidad_votos_en').prop('hidden', function(index, value) {
+    $('#cantidad_votos_en').prop('hidden', function (index, value) {
       return !value;
     });
   });
