@@ -41,7 +41,7 @@
     height: 50px;
     position: relative;
     margin: 0 10px !important;
-    width: 72% !important;
+    width: 80% !important;
     color: #CADBDD;
 
 
@@ -73,7 +73,7 @@
 }
 
 .formulario-fondo {
-    height: 500px;
+    height: 550px;
     background: #E0AC90 0% 0% no-repeat padding-box;
     opacity: 1;
 }
@@ -91,6 +91,7 @@
     background: #C1632F 0% 0% no-repeat padding-box;
     border-radius: 36px;
     opacity: 1;
+    border:0;
 }
 
 .titulo_encabezado_form {
@@ -159,6 +160,21 @@
 .hover-element:hover {
     background-color: #000;
 }
+
+.ui-dialog .ui-dialog-titlebar-close {
+    position: absolute;
+    background-image: url(https://premiosenoturismochile.cl/wp-content/uploads/2023/08/icono_cerrar.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #0066cc;
+    right: 0.3em;
+    top: 50%;
+    width: 21px;
+    margin: -10px 0 0 0;
+    padding: 1px;
+    height: 20px;
+}
+
 /* .ajuste-tamanno {
     width: 70%;
     margin: auto;
