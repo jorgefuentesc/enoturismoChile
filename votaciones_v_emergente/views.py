@@ -212,7 +212,7 @@ def envio_datos_formulario(request):
 </html>
 
                 """
-                enviar_correo(asunto_correo, mensaje_html, correo)
+                # enviar_correo(asunto_correo, mensaje_html, correo)
                 mensaje = 'Votacion exitosa.'
                 estado = 1
         else:
