@@ -1,4 +1,3 @@
-
 function fn_datos_para_mdl(p,e) {
     // Hacer lo que desees con el parámetro recibido (ID de la viña)
     id_vina = p
@@ -9,6 +8,11 @@ function fn_datos_para_mdl(p,e) {
             data: { id_vina: id_vina },
             dataType: "json",
             success: function (response) {
+                var link_instagram = response.link_instagram;
+                var link_facebook = response.link_facebook;
+                var link_pagina = response.link_pagina;
+                var link_video = response.link_video;
+
                 var titulo_vinna_elemento = document.getElementById('titulo-vinna-mdl');
                 var descripcion_vinna_elemento = document.getElementById('descripcion_vinna');
                 var titulo_superior_vinna_elemento = document.getElementById('titulo_superior');
@@ -26,14 +30,12 @@ function fn_datos_para_mdl(p,e) {
                 src="${img_vinna}" alt="">
                 `;
 
-                // Cambiar el contenido del elemento
-
                 descripcion_vinna_elemento.innerText = descripcion_vinna;
                 titulo_superior_vinna_elemento.innerText = titulo_vinna;
 
                 var nuevo_contenido = response.nombre_vinna;
                 titulo_vinna_elemento.innerText = nuevo_contenido;
-
+                
 
                 var contenedor_logos = document.getElementById('contenedor_logos');
                  contenedor_logos.innerHTML = 
@@ -44,13 +46,13 @@ function fn_datos_para_mdl(p,e) {
                 if (link_instagram != ''){
                     contenedor_logos.innerHTML+= 
                     `
-                    <a  id="direccion-instagram" onclick="fn_redir('${link_instagram}')" ><img src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/insta.png" alt=""></a>
+                    <a id="direccion-instagram" onclick="fn_redir('${link_instagram}')"  ><img src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/insta.png" alt=""></a>
                     `
                 }
                 if (link_facebook != ''){
                     contenedor_logos.innerHTML+= 
                     `
-                    <a id="direccion-facebook" onclick="fn_redir('${link_facebook}')"><img src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/facebook.png" alt=""></a>
+                    <a id="direccion-facebook" onclick="fn_redir('${link_facebook}')"  ><img src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/facebook.png" alt=""></a>
 
                     `
                 }
@@ -68,22 +70,30 @@ function fn_datos_para_mdl(p,e) {
 
                     `
                 }
+               
 
+                // Cambiar el contenido del elemento
 
+                
                 var modal = document.getElementById("mdl-vista_vinna");
+                // $('#mdl-vista_vinna').modal({backdrop: 'static', keyboard: false});
                 $('#mdl-vista_vinna').modal('show');
+                // $('#myModal').modal({backdrop: 'static', keyboard: false})
                 modal.style.top = e.getBoundingClientRect().top + "px";
+                
 
             }
         });
 
 }
-
 function fn_redir(parametro){
     window.open(parametro , "blank") 
 }
 function fn_cerrar_mdl(){
     $('#mdl-vista_vinna').modal('hide');
 }
+
+
+
 
 

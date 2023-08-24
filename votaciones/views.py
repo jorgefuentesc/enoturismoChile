@@ -235,6 +235,7 @@ def envio_datos_formulario(request):
         response_data = {
             'message': mensaje,
             'data': estado,
+            'dato_t':'experienciaENO',
         }
         return JsonResponse(response_data)
     

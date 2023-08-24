@@ -221,6 +221,7 @@ def envio_datos_formulario(request):
         response_data = {
             'message': mensaje,
             'data': estado,
+            'valor_d': 'viñaEmergente',
         }
         return JsonResponse(response_data)
 

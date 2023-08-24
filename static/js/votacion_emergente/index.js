@@ -162,6 +162,9 @@ opacity: 1;">
     // Obtener los valores de los campos de entrada del formulario
     var nombre = $("#nombre").val();
     var correo = $("#correo").val();
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const isValidEmail = emailRegex.test(correo);
+
     var datos = {
       documento: documento,
       nombre: nombre,
@@ -169,74 +172,80 @@ opacity: 1;">
       opciones: valoresSeleccionados,
     };
 
-    if (Fn.validaRut($("#documento").val()) && valorSeleccionado == 'run' ) {
-      if(nombre == null || nombre == undefined || nombre == ''){
-        var nombreVacio = document.getElementById('label-error_nombre');
-        nombreVacio.removeAttribute('hidden');
-      } else if (correo == null || correo == undefined || correo == ''){
-        var correoVacio = document.getElementById('label-error_correo');
-        correoVacio.removeAttribute('hidden');
-      }else{
-        $.ajax({
-          type: "POST",
-          url: "envio_datos_formulario/",
-          data: JSON.stringify(datos),
-          dataType: "json",
-          headers: {
-            'X-CSRFToken': csrfToken,  // Incluir el token CSRF como encabezado
-          },
-          success: function (response) {
-            if(response.data == 0){
-              var error_envio = document.getElementById("error_envio")
-              error_envio.textContent = response.message;
-              error_envio.hidden = false;
-            }       
-            else{
-              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa-2/';
-  
-            }
-          }
-        });
-      }
-      
-    } 
-    else if(valorSeleccionado == 'pasaporte'){
-      if(nombre == null || nombre == undefined || nombre == ''){
-        var nombreVacio = document.getElementById('label-error_nombre');
-        nombreVacio.removeAttribute('hidden');
-      } else if (correo == null || correo == undefined || correo == ''){
-        var correoVacio = document.getElementById('label-error_correo');
-        correoVacio.removeAttribute('hidden');
-      }else{
-        $.ajax({
-          type: "POST",
-          url: "envio_datos_formulario/",
-          data: JSON.stringify(datos),
-          dataType: "json",
-          headers: {
-            'X-CSRFToken': csrfToken,  // Incluir el token CSRF como encabezado
-          },
-          success: function (response) {
-            if(response.data == 0){
-              var error_envio = document.getElementById("error_envio")
-              error_envio.textContent = response.message;
-              error_envio.hidden = false;
-            }       
-            else{
-              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa-2/';
-  
-            }
-          }
-        });
-      }
-      
+    if (isValidEmail) {
+      if (Fn.validaRut($("#documento").val()) && valorSeleccionado == 'run') {
+        if (nombre == null || nombre == undefined || nombre == '') {
+          var nombreVacio = document.getElementById('label-error_nombre');
+          nombreVacio.removeAttribute('hidden');
+        } else if (correo == null || correo == undefined || correo == '') {
+          var correoVacio = document.getElementById('label-error_correo');
+          correoVacio.removeAttribute('hidden');
+        } else {
+          $.ajax({
+            type: "POST",
+            url: "envio_datos_formulario/",
+            data: JSON.stringify(datos),
+            dataType: "json",
+            headers: {
+              'X-CSRFToken': csrfToken,  // Incluir el token CSRF como encabezado
+            },
+            success: function (response) {
+              if (response.data == 0) {
+                var error_envio = document.getElementById("error_envio")
+                error_envio.textContent = response.message;
+                error_envio.hidden = false;
+              }
+              else {
+                window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa-2/';
 
+              }
+            }
+          });
+        }
+
+      }
+      else if (valorSeleccionado == 'pasaporte') {
+        if (nombre == null || nombre == undefined || nombre == '') {
+          var nombreVacio = document.getElementById('label-error_nombre');
+          nombreVacio.removeAttribute('hidden');
+        } else if (correo == null || correo == undefined || correo == '') {
+          var correoVacio = document.getElementById('label-error_correo');
+          correoVacio.removeAttribute('hidden');
+        } else {
+          $.ajax({
+            type: "POST",
+            url: "envio_datos_formulario/",
+            data: JSON.stringify(datos),
+            dataType: "json",
+            headers: {
+              'X-CSRFToken': csrfToken,  // Incluir el token CSRF como encabezado
+            },
+            success: function (response) {
+              if (response.data == 0) {
+                var error_envio = document.getElementById("error_envio")
+                error_envio.textContent = response.message;
+                error_envio.hidden = false;
+              }
+              else {
+                window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa-2/';
+
+              }
+            }
+          });
+        }
+
+
+      }
+      else {
+        const labelError = document.getElementById("label-error");
+        labelError.hidden = false;
+
+      }
+    } else {
+      var correoVacio = document.getElementById('label-error_correo');
+      correoVacio.removeAttribute('hidden');
     }
-    else {
-      const labelError = document.getElementById("label-error");
-      labelError.hidden = false;
-      
-    }
+    
   });
 
   const btnMostrar = $('#boton_mostrar');

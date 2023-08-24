@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'votacion/base.html' %}
 {% load static %}
 
 {% block contenido %}
@@ -11,7 +11,7 @@
 
 
 <div>
-  <button type="button" class="btn " id="boton_mostrar" style="background-color: #E58341 !important; border-color: #E58341 !important; color: #fff;" hidden ><h3>
+  <button type="button" class="btn " id="boton_mostrar" style="background-color: #E58341 !important; border-color: #E58341 !important; color: #fff;"><h3>
     Mostrar cantidad de votos
   </h3></button>
 <br>
@@ -80,10 +80,11 @@
               <button class="btn-enviar " type="submit">
                 <p style="letter-spacing: 0.75px;
                 color: white;
-                opacity: 1;font-size: x-large; text-align: center; ">Enviar Votación</p>
+                opacity: 1;font-size: xx-large; text-align: center; ">Enviar Votación</p>
               </button><br>
               <label id="error_envio" style="color: red;" hidden>Ingrese un run valido</label>
-
+              <!-- <a href="https://premiosenoturismochile.cl/votacion-exitosa/"> <label class="label_enviar"></label></a>
+                <a class="btn btn-primary">Enviar Votación</a> -->
             </div>
           </div>
 
