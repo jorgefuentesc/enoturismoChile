@@ -56,6 +56,7 @@ class VinnasTest(models.Model):
 class RegistroVotosTest(models.Model):
     id = models.BigAutoField(db_column='id_registros', primary_key=True)
     tipo_registro = models.CharField(max_length=60)
+    nombre = models.CharField(max_length=300, default="")
     registro_vigencia = models.BooleanField(default=True)
     correo_electronico = models.CharField(max_length=120, default='correo@example.com')
     pasaporte = models.CharField(max_length=120, default='1111111')

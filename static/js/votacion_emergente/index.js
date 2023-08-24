@@ -251,7 +251,7 @@ opacity: 1;">
    $('#boton_mostrar').click(function() {
     console.log("workeando")
     // Alternar el atributo "hidden" al hacer clic (mostrar si está oculto, ocultar si está visible)
-    $('#cantidad_votos_en').prop('hidden', function(index, value) {
+    $('#cantidad_votos_em').prop('hidden', function(index, value) {
       return !value;
     });
   });

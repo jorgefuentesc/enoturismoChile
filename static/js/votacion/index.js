@@ -32,6 +32,7 @@ $(document).ready(function () {
   var contenedor_vinna = document.getElementById('contenedor-vinnas')
   contenedor_vinna.innerHTML = "<div style=\"display: flex; justify-content: center; align-items: center; height: 0px;\"><i class='fas fa-spin fa-spinner fa-10x'></i></div>";
 
+  // const tipo_votacion = $('#hdn_tipo_votacion').val();
   $.ajax({
     type: "GET",
     url: "cargar_datos_votacion/",
@@ -158,10 +159,15 @@ opacity: 1;">
     // Mostrar el valor seleccionado en la consola
     var csrfToken = getCookie('csrftoken');
 
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
     var documento = $("#documento").val();
     // Obtener los valores de los campos de entrada del formulario
     var nombre = $("#nombre").val();
-    var correo = $("#correo").val();
+    var correo = $("#correo").val().replace(' ','');
+
+    const isValidEmail = emailRegex.test(correo);
+
     var datos = {
       documento: documento,
       nombre: nombre,
@@ -169,11 +175,15 @@ opacity: 1;">
       opciones: valoresSeleccionados,
     };
 
-    if (Fn.validaRut($("#documento").val()) && valorSeleccionado == 'run' ) {
+    if(!isValidEmail){
+      console.log("email incorrecto: " ,isValidEmail)
+      return
+    }
+    if (Fn.validaRut($("#documento").val()) && valorSeleccionado == 'run'  ) {
       if(nombre == null || nombre == undefined || nombre == ''){
         var nombreVacio = document.getElementById('label-error_nombre');
         nombreVacio.removeAttribute('hidden');
-      } else if (correo == null || correo == undefined || correo == ''){
+      } else if (correo == null || correo == undefined || correo == '' ){
         var correoVacio = document.getElementById('label-error_correo');
         correoVacio.removeAttribute('hidden');
       }else{
