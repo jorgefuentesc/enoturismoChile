@@ -30,29 +30,29 @@ def index(request):
 
 
 
-def enviar_correo( asunto, mensaje_html, destinatario):
-    try:
-        smtp_server = "mail.premiosenoturismo.cl"
-        smtp_port = 587  
-        correo_gmail = "no-responder@premiosenoturismochile.cl"
-        contrasena_gmail = "}$cn#A_X3[Lq"
-        if not contrasena_gmail:
-            print("no config")
-            raise ValueError("La variable de entorno GMAIL_APP_PASSWORD no está configurada.")
-        server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()
-        server.login(correo_gmail, contrasena_gmail)
-        print("despues server login")
-        msg = MIMEMultipart()
-        msg['From'] = correo_gmail
-        msg['To'] = destinatario
-        msg['Subject'] = asunto
-        msg.attach(MIMEText(mensaje_html, 'html', 'utf-8'))
-        server.sendmail(correo_gmail, destinatario, msg.as_string())
-        server.quit() 
+# def enviar_correo( asunto, mensaje_html, destinatario):
+#     try:
+#         smtp_server = "mail.premiosenoturismo.cl"
+#         smtp_port = 587  
+#         correo_gmail = "no-responder@premiosenoturismochile.cl"
+#         contrasena_gmail = "}$cn#A_X3[Lq"
+#         if not contrasena_gmail:
+#             print("no config")
+#             raise ValueError("La variable de entorno GMAIL_APP_PASSWORD no está configurada.")
+#         server = smtplib.SMTP(smtp_server, smtp_port)
+#         server.starttls()
+#         server.login(correo_gmail, contrasena_gmail)
+#         print("despues server login")
+#         msg = MIMEMultipart()
+#         msg['From'] = correo_gmail
+#         msg['To'] = destinatario
+#         msg['Subject'] = asunto
+#         msg.attach(MIMEText(mensaje_html, 'html', 'utf-8'))
+#         server.sendmail(correo_gmail, destinatario, msg.as_string())
+#         server.quit() 
 
-    except SMTPResponseException as e:
-        print(e)
+#     except SMTPResponseException as e:
+#         print(e)
 
     
 
@@ -155,8 +155,7 @@ def envio_datos_formulario(request):
                         vinna_id=viñas_id[i],
                         region_id=regiones_id[i],
                         fecha_voto_act=fecha_formateada,
-                        hora_voto_act=hora_formateada,
-                        nombre=nombre,
+                        hora_voto_act=hora_formateada
 
                     )
                 print("agredecimiento ")

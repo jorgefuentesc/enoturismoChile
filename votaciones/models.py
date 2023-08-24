@@ -63,7 +63,6 @@ class RegistroVotosTest(models.Model):
     region = models.ForeignKey(RegionesTest,blank=True,null=True, on_delete=models.CASCADE)
     fecha_voto_act = models.CharField(max_length=120, default="23/08/2023")
     hora_voto_act = models.CharField(max_length=120,default='-')
-    nombre = models.CharField(max_length=300, default="sin nombre")
     class Meta:
         managed = True
         db_table = "registro_votos_test"
