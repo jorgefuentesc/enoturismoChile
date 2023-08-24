@@ -141,7 +141,7 @@ def envio_datos_formulario(request):
                     registro = RegistroVotosTest.objects.create(
                         tipo_registro='viñaEmergente',
                         correo_electronico=correo,
-                        nombre=nombre,
+
                         pasaporte=documento,
                         vinna_id=viñas_id[i],
                         region_id=regiones_id[i],
