@@ -56,7 +56,6 @@ class VinnasTest(models.Model):
 class RegistroVotosTest(models.Model):
     id = models.BigAutoField(db_column='id_registros', primary_key=True)
     tipo_registro = models.CharField(max_length=60)
-    nombre = models.TextField(default="sin nombre")
     registro_vigencia = models.BooleanField(default=True)
     correo_electronico = models.CharField(max_length=120, default='correo@example.com')
     pasaporte = models.CharField(max_length=120, default='1111111')
@@ -64,6 +63,7 @@ class RegistroVotosTest(models.Model):
     region = models.ForeignKey(RegionesTest,blank=True,null=True, on_delete=models.CASCADE)
     fecha_voto_act = models.CharField(max_length=120, default="23/08/2023")
     hora_voto_act = models.CharField(max_length=120,default='-')
+    nombre = models.TextField(default="sin nombre")
     class Meta:
         managed = True
         db_table = "registro_votos_test"

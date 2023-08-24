@@ -113,6 +113,8 @@ def envio_datos_formulario(request):
         regiones_id = list(opciones.keys())
         tipo_registro = 'experienciaENO'
 
+        print("entra dps tipo regs")
+
         zona_horaria = pytz.timezone('America/Santiago')
     
         # Obtener la fecha y hora actuales en la zona horaria de Santiago
@@ -149,12 +151,12 @@ def envio_datos_formulario(request):
                     registro = RegistroVotosTest.objects.create(
                         tipo_registro='experienciaENO',
                         correo_electronico=correo,
-                        nombre=nombre,
                         pasaporte=documento,
                         vinna_id=viñas_id[i],
                         region_id=regiones_id[i],
                         fecha_voto_act=fecha_formateada,
                         hora_voto_act=hora_formateada,
+                        nombre=nombre,
 
                     )
                 print("agredecimiento ")
@@ -222,11 +224,11 @@ def envio_datos_formulario(request):
 </html>
 
                 """
-                # try: 
-                #     print("enviado")
-                #     enviar_correo(asunto_correo, mensaje_html, correo)
-                # except Exception as e:
-                #     print(e)
+                try: 
+                    print("enviado")
+                    enviar_correo(asunto_correo, mensaje_html, correo)
+                except Exception as e:
+                    print(e)
                 mensaje = 'Votacion exitosa.'
                 estado = 1
         else:

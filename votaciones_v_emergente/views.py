@@ -141,12 +141,12 @@ def envio_datos_formulario(request):
                     registro = RegistroVotosTest.objects.create(
                         tipo_registro='viñaEmergente',
                         correo_electronico=correo,
-                        nombre=nombre,
                         pasaporte=documento,
                         vinna_id=viñas_id[i],
                         region_id=regiones_id[i],
                         fecha_voto_act=fecha_formateada,
                         hora_voto_act=hora_formateada,
+                        nombre=nombre,
                     )
                 remitente_correo = correo
                 asunto_correo = '¡Gracias por votar!'
@@ -212,11 +212,11 @@ def envio_datos_formulario(request):
 </html>
 
                 """
-                # try: 
-                #     print("enviado")
-                #     enviar_correo(asunto_correo, mensaje_html, correo)
-                # except Exception as e:
-                #     print(e)
+                try: 
+                    print("enviado")
+                    enviar_correo(asunto_correo, mensaje_html, correo)
+                except Exception as e:
+                    print(e)
                 mensaje = 'Votacion exitosa.'
                 estado = 1
         else:
