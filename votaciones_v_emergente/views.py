@@ -212,11 +212,7 @@ def envio_datos_formulario(request):
 </html>
 
                 """
-                try: 
-                    print("enviado")
-                    enviar_correo(asunto_correo, mensaje_html, correo)
-                except Exception as e:
-                    print(e)
+
                 mensaje = 'Votacion exitosa.'
                 estado = 1
         else:
