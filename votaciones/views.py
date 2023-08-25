@@ -74,7 +74,7 @@ class Votaciones(View):
             # Obtener solo los IDs (regiones)
             regiones_id = list(opciones.keys())
 
-            tipo_registro = 'viñaEmergente' if int(tipo) == 1 else 'experienciaENO'
+            tipo_registro = 'experienciaENO' if int(tipo) == 1 else 'viñaEmergente'
 
             zona_horaria = pytz.timezone('America/Santiago')
         
@@ -115,14 +115,12 @@ class Votaciones(View):
                     region_id=regiones_id[i],
                     fecha_voto_act=fecha_formateada,
                     hora_voto_act=hora_formateada,
+                    nombre=nombre.upper()
                 )
             # TODO: ENVIAR CORREO
             return JsonResponse({ 'ok': True, 'mensaje': 'Votos almacenados exitosamente.' })
         except Exception as e:
             return JsonResponse({ 'ok': False, 'mensaje': f"""Ocurrió un error, { e }""" })
-
-def get_mdl_vina(request):
-    print('get mdl vina')
 
 def ruta_no_encontrada(request):
     return render(request, 'error/404.html')
