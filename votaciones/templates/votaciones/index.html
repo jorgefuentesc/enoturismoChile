@@ -9,6 +9,18 @@
 {% if error %}
   <h1>Ups ha ocurrido un error</h1>
 {% else %}
+  <div class="row">
+    <div class="col-xs-12 m-5">
+      <h1 class="heading-title">Vota por la {{ tipo | lower }} !</h1>        
+      <h2 class="heading-subtitle"><b>INSTRUCCIONES CATEGORIA {{ tipo }} </b></h2>
+      <ol class="instrucciones">
+        <li>Revisa las diferentes experiencias finalistas del concurso. Solo debes dar clic sobre cada una de ellas y automáticamente aparecerá su información detallada.&nbsp;</li>
+        <li>Selecciona como mínimo tres diferentes experiencias de tu preferencia en las distintas regiones disponibles y como máximo una experiencia por cada región.&nbsp;</li>
+        <li>Completa los campos con tu nombre completo, correo electrónico, Rut o pasaporte.</li>
+        <li>Confirma tu votación presionando el botón «Enviar votación» y ¡listo! Estarás participando por diferentes premios como experiencias enoturisticas y canastas de productos regionales ¡Ya eres parte de los Premios Enoturismo Chile 2023!</li>
+      </ol>
+    </div>
+  </div>
   <form id="frm_votacion">
     {% csrf_token %}
     {% include 'votaciones/vinas.html' %}

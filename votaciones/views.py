@@ -25,10 +25,13 @@ class Votaciones(View):
             if(tipo == '' or int(tipo) not in [1, 2]):
                 return render(request, 'error/404.html')
             
+            tipo = int(tipo)
+            txtTipo = 'MEJOR EXPERIENCIA' if tipo == 1 else 'MEJOR VIÑA EMERGENTE'
+
             # TIPO = 1 -> mejor experiencia / TIPO = 2 -> mejor viña emergente
             for region in regiones:
                 if region.regiones_vigencia == 1:
-                    viñas_de_region = vinnas.filter(region=region, categoria=int(tipo)) #aqui obtengo mis viñas de las regiones
+                    viñas_de_region = vinnas.filter(region=region, categoria=tipo) #aqui obtengo mis viñas de las regiones
                     for viña in viñas_de_region:
                         print(viña.nombre_vinna, "viii")
                     print("--------------------")
@@ -51,7 +54,7 @@ class Votaciones(View):
                         }
                         lista_regiones.append(region_data)
             random.shuffle(lista_regiones)
-            return render(request, 'votaciones/index.html', { 'error': False, 'regiones': lista_regiones })
+            return render(request, 'votaciones/index.html', { 'error': False, 'regiones': lista_regiones, 'tipo': txtTipo })
         except Exception as e:
             print('Ocurrió un error, ', e)
             return render(request, 'votaciones/index.html', { 'error': True })
