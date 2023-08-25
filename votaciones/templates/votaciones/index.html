@@ -1,0 +1,83 @@
+{% extends 'base/index.html' %}
+{% load static %}
+
+{% block contenido %}
+{% block modal %}
+{% include 'modals/mdl_vina.html' %}
+{% endblock modal %}
+
+{% if error %}
+  <h1>Ups ha ocurrido un error</h1>
+{% else %}
+  <form id="frm_votacion">
+    {% csrf_token %}
+    {% include 'votaciones/vinas.html' %}
+    <div class="row m-3">
+      <div class="col-md-6">
+        <h1 class="col-md-12 titulo_form ">Para enviar tu votación debes completar los siguientes datos</h1>
+        <div style="text-align: center;">
+          <img src="{% static 'img/logo-votacion.PNG' %}" alt="">
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="card confirmation-form formulario-fondo col-md-12 col-lg-12">
+          <div class="card-body m-b-10">
+            <h3 class="card-title titulo_encabezado_form">Ingresa tus datos</h3>
+            <br>
+            <div class="form-group ">
+              <div id="radioGroup" style="margin-top: 4px;margin-top: 4px; padding-left: 2%;">
+                <label for="run" style="color: #C1632F;"> Run: </label>
+                <input type="radio" class="radio-input rd_color" name="inp_tipo_id" id="run" value="run" checked>
+                <label for="pasaporte" style="color: #C1632F;"> Pasaporte: </label>
+                <input type="radio" class="radio-input rd_color" name="inp_tipo_id" id="pasaporte" value="pasaporte">
+              </div>
+              
+              <input type="text" class="form-control formulario-input" required oninput="checkRut(this)" id="documento" placeholder="12.345.678-9">
+              {% comment %} <label id="label-error" style="color: red;" hidden></label> {% endcomment %}
+              <div class="invalid-feedback">
+                
+              </div>
+            </div>
+
+            <div class="form-group ">
+              <label class="titulo_input" for="correo">Nombre:</label>
+              <input type="text" class="form-control formulario-input" id="nombre" placeholder="Nombre Apellido">
+              {% comment %} <label id="label-error_nombre" for="" style="color: red;float: right;" hidden>Ingrese un nombre</label> {% endcomment %}
+              <div class="invalid-feedback">
+                
+              </div>
+            </div>
+
+            <div class="form-group ">
+              <label class="titulo_input" for="correo">Correo Electrónico:</label>
+              <input type="email" class="form-control formulario-input" id="correo" placeholder="ejemplo@correo.com">
+              {% comment %} <label id="label-error_correo" for="" style="color: red;float: right;" hidden>ingrese un correo electronico</label> {% endcomment %}
+              <div class="invalid-feedback">
+                
+              </div>
+            </div>
+
+            <br>
+            <div class="text-center">
+              <button class="btn btn-enviar" type="submit" disabled>
+                <p style="letter-spacing: 0.75px; color: white; opacity: 1; font-size: x-large;text-align: center;padding-top: 7px;">
+                  Enviar
+                </p>
+              </button>
+              <hr>
+              <p class="text-danger font-weight-bold" id="msj-votos">
+                Debes realizar al menos 3 votos más.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </form>
+{% endif %}
+{% endblock contenido %}
+
+{% block script %}
+<script src="{% static 'js/votacion/modal.js' %}"></script>
+<script src="{% static 'js/votacion/index.js' %}"></script>
+<script src="{% static 'js/helpers/index.js' %}"></script>
+{% endblock script %}

@@ -1,6 +1,12 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@900&display=swap');
 
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    height: 100vh;
+    width: 100vw;
+}
 
 .font-ins {
     font-family: 'Tajawal', sans-serif;
@@ -14,8 +20,6 @@
     opacity: 1;
 }
 
-
-
 .circle {
     display: inline-block;
     width: 60px;
@@ -28,9 +32,7 @@
     top: 0;
     bottom: 0;
     margin: auto 0;
-
 }
-
 
 .circulo {
     display: flex;
@@ -43,8 +45,6 @@
     margin: 0 10px !important;
     width: 80% !important;
     color: #CADBDD;
-
-
 }
 
 .contenedor-b {
@@ -73,7 +73,7 @@
 }
 
 .formulario-fondo {
-    height: 550px;
+    height: 600px;
     background: #E0AC90 0% 0% no-repeat padding-box;
     opacity: 1;
 }
@@ -92,6 +92,10 @@
     border-radius: 36px;
     opacity: 1;
     border:0;
+}
+
+.btn-enviar:hover {
+    opacity: .8;
 }
 
 .titulo_encabezado_form {
@@ -180,7 +184,6 @@
     margin: auto;
 }*/
 
-
-
-
-
+.swal2-container {
+    z-index: 999999;
+}

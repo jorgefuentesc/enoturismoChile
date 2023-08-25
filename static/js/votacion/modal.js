@@ -70,18 +70,12 @@ function fn_datos_para_mdl(p,e) {
 
                     `
                 }
-               
-
                 // Cambiar el contenido del elemento
-
-                
                 var modal = document.getElementById("mdl-vista_vinna");
                 // $('#mdl-vista_vinna').modal({backdrop: 'static', keyboard: false});
                 $('#mdl-vista_vinna').modal('show');
                 // $('#myModal').modal({backdrop: 'static', keyboard: false})
-                modal.style.top = e.getBoundingClientRect().top + "px";
-                
-
+                // modal.style.top = e.getBoundingClientRect().top + "px";
             }
         });
 
@@ -92,8 +86,3 @@ function fn_redir(parametro){
 function fn_cerrar_mdl(){
     $('#mdl-vista_vinna').modal('hide');
 }
-
-
-
-
-
