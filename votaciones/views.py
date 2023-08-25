@@ -28,7 +28,10 @@ class Votaciones(View):
             # TIPO = 1 -> mejor experiencia / TIPO = 2 -> mejor viña emergente
             for region in regiones:
                 if region.regiones_vigencia == 1:
-                    viñas_de_region = vinnas.filter(region=region, categoria=int(tipo))
+                    viñas_de_region = vinnas.filter(region=region, categoria=int(tipo)) #aqui obtengo mis viñas de las regiones
+                    for viña in viñas_de_region:
+                        print(viña.nombre_vinna, "viii")
+                    print("--------------------")
                     if viñas_de_region:
                         viñas_data = list(zip([viña.nombre_vinna for viña in viñas_de_region], [viña.img_url for viña in viñas_de_region], [viña.id for viña in viñas_de_region]))
                         random.shuffle(viñas_data)  # Reorganizar la lista de viñas aleatoriamente  
