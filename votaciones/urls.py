@@ -11,4 +11,4 @@ urlpatterns = [
     path('categoria', Votaciones.as_view(), name='index'),
     path('cargar_mdl_vinna/', cargar_mdl_vinna, name='cargar_mdl_vinna'),
     path('', ruta_no_encontrada, name='default')
-]
+] 
