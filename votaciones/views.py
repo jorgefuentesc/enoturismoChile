@@ -10,7 +10,7 @@ import re
 from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-
+from django.db.models import F
 # Modelos
 from .models import   RegionesTest, VinnasTest, RegistroVotosTest
 
@@ -18,40 +18,54 @@ class Votaciones(View):
     def get(self, request):
         try:
             tipo = request.GET.get('tipo', '')
-            regiones = RegionesTest.objects.all()
+            regiones = RegionesTest.objects.filter(regiones_vigencia=True)
             vinnas = VinnasTest.objects.all()
             lista_regiones = []
-            
-            if(tipo == '' or int(tipo) not in [1, 2]):
+
+            if tipo == '' or int(tipo) not in [1, 2]:
                 return render(request, 'error/404.html')
             
-            # TIPO = 1 -> mejor experiencia / TIPO = 2 -> mejor viña emergente
+            tipo_registro = 'experienciaENO' if int(tipo) == 1 else 'viñaEmergente'
+            print(tipo_registro)
             for region in regiones:
-                if region.regiones_vigencia == 1:
-                    viñas_de_region = vinnas.filter(region=region, categoria=int(tipo)) #aqui obtengo mis viñas de las regiones
+                viñas_de_region = vinnas.filter(region=region, categoria=int(tipo))
+                total_votos_regio2n = RegistroVotosTest.objects.filter(region=region, vinna__in=viñas_de_region, tipo_registro=tipo_registro).count()
+                
+                # Solo si hay viñas en la región actual
+                if viñas_de_region:
+                    viñas_data = []
+                    
                     for viña in viñas_de_region:
-                        print(viña.nombre_vinna, "viii")
-                    print("--------------------")
-                    if viñas_de_region:
-                        viñas_data = list(zip([viña.nombre_vinna for viña in viñas_de_region], [viña.img_url for viña in viñas_de_region], [viña.id for viña in viñas_de_region]))
-                        random.shuffle(viñas_data)  # Reorganizar la lista de viñas aleatoriamente  
-                        if viñas_data:
-                            nombre_viñas, imagen_viñas, id_viñas = zip(*viñas_data)   
-                        else:
-                            print("datos insuficifientes")
-                        region_data = {
-                            'id_region': region.id,
-                            'region': region.nombre_regiones,
-                            'viñas': nombre_viñas,
-                            'imagenViñas': imagen_viñas,
-                            'id_viñas': id_viñas,
-                            'colorFondo': region.color,
-                            'colorCirculo': region.color_circulo,
-                            'colorInterior': region.color_interior,
-                        }
-                        lista_regiones.append(region_data)
+                        total_votos_vinna_por_region = RegistroVotosTest.objects.filter(region=region, vinna=viña, tipo_registro=tipo_registro).count()
+                        porcentajer = (total_votos_vinna_por_region / total_votos_regio2n) * 100
+                        porcentaje = int(porcentajer)
+                        
+                        viñas_data.append({
+                            'nombre_viña': viña.nombre_vinna,
+                            'imagen_viña': viña.img_url,
+                            'id_viña': viña.id,
+                            'porcentaje': porcentaje,
+                        })
+
+                    random.shuffle(viñas_data)
+                    nombre_viñas, imagen_viñas, id_viñas, porcentajes = zip(*[(vd['nombre_viña'], vd['imagen_viña'], vd['id_viña'], vd['porcentaje']) for vd in viñas_data])
+                    print(porcentajes)
+                    region_data = {
+                        'id_region': region.id,
+                        'region': region.nombre_regiones,
+                        'viñas': nombre_viñas,
+                        'imagenViñas': imagen_viñas,
+                        'id_viñas': id_viñas,
+                        'colorFondo': region.color,
+                        'colorCirculo': region.color_circulo,
+                        'colorInterior': region.color_interior,
+                        'porcentajes': porcentajes,
+                    }
+
+                    lista_regiones.append(region_data)
+
             random.shuffle(lista_regiones)
-            return render(request, 'votaciones/index.html', { 'error': False, 'regiones': lista_regiones })
+            return render(request, 'votaciones/index.html', {'error': False, 'regiones': lista_regiones})
         except Exception as e:
             print('Ocurrió un error, ', e)
             return render(request, 'votaciones/index.html', { 'error': True })
