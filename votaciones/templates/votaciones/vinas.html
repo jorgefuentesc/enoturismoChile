@@ -1,0 +1,64 @@
+{% for reg in regiones %}
+    <section class="contenedor-b row" style="background: {{ reg.colorFondo }};">
+        
+        <h1 class="col-md-3" style= "color: #FFFFFF;">{{ reg.region }}</h1>
+        <section class=" col-md-3" style="padding: 27px;">
+            <div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;">
+                <img class="hover-element" onclick="fn_datos_para_mdl('{{ reg.id_viñas.0 }}',this)" src="{{ reg.imagenViñas.0 }}" style="width: 200px; height: 90px; border-radius: 62px;" type="text" data-parametro= {{ reg.id_viñas.0 }}>
+            </div>
+            
+            <div class="circulo row" style="background: {{ reg.colorInterior }} 0% 0% no-repeat padding-box;">
+                <label class="circle" style="background: {{ reg.colorCirculo }} 0% 0% no-repeat padding-box; opacity: 1;">
+                    <input type="radio" class="color-radio" name="{{ reg.id_region }}" value="{{ reg.id_viñas.0 }}" style="accent-color: #617072;margin-top:18px; margin-left:-10px; z-index:3000;">
+                </label>
+                <label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
+                    <div style="display: contents;position: relative;">
+                        <div style="position: absolute;bottom: -27px;">
+                            <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">{{ reg.viñas.0 }}</p>
+                        </div>
+                        <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class=""> </span>
+                    </div> 
+                </label>
+            </div>      
+        </section>     
+        
+        <section class=" col-md-3" style="padding: 27px;">
+            <div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;">
+                <img class="hover-element" onclick="fn_datos_para_mdl('{{ reg.id_viñas.1 }}',this)" src="{{ reg.imagenViñas.1 }}" style="width: 200px; height: 90px; border-radius: 62px;" type="text" data-parametro= {{ reg.id_viñas.1 }}>
+            </div>
+            <div class="circulo row" style="background: {{ reg.colorInterior }}  0% 0% no-repeat padding-box;" >
+                <label class="circle" style="background: {{ reg.colorCirculo }} 0% 0% no-repeat padding-box; opacity: 1;">
+                    <input type="radio" class="color-radio" name="{{ reg.id_region }}" value="{{ reg.id_viñas.1 }}" style="accent-color: #617072;margin-top:18px; margin-left:-10px; z-index:3000;">
+                </label>
+                <label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
+                    <div style="display: contents;position: relative;">
+                        <div style="position: absolute;bottom: -27px;">
+                            <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">{{ reg.viñas.1 }}</p>
+                        </div>
+                        <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class=""> </span>
+                    </div>       
+                </label>
+            </div>      
+        </section>          
+        
+        <section class=" col-md-3" style="padding: 27px;">
+            <div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('{{ reg.id_viñas.2 }}',this)" src="{{ reg.imagenViñas.2 }}" style="width: 200px; height: 90px; border-radius: 62px;" type="text" data-parametro= {{ reg.id_viñas.2 }}>
+            </div>
+            <div class="circulo row" style="background: {{ reg.colorInterior }} 0% 0% no-repeat padding-box;" >
+                <label class="circle" style="background: {{ reg.colorCirculo }} 0% 0% no-repeat padding-box;opacity: 1;">
+                <input type="radio" class="color-radio" name="{{ reg.id_region }}" value="{{ reg.id_viñas.2 }}" style="accent-color: #617072;margin-top:18px; margin-left:-10px; z-index:3000;">
+                </label>
+                
+                <label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
+                    <div style="display: contents;position: relative;">
+                        <div style="position: absolute;bottom: -27px;">
+                            <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">{{ reg.viñas.2 }}</p>
+                        </div>
+                        <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class=""> </span>
+                    </div>       
+                </label>
+            </div>      
+        </section> 
+
+    </section> 
+{% endfor %}

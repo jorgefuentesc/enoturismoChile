@@ -1,13 +1,39 @@
-
-
 $(document).ready(function () {
+  // Obtener el contenedor que engloba los radio buttons y las etiquetas
+  const radioGroup = document.getElementById('radioGroup');
 
+  // Obtener todos los radio buttons con la clase 'radio-input'
+  const radioButtons = radioGroup.querySelectorAll('.radio-input');
+
+  // Agregar un event listener para cada radio button
+  radioButtons.forEach(radio => {
+    radio.addEventListener('change', () => {
+      // Obtener el valor del radio button seleccionado
+      const valorSeleccionado = radio.value;
+      if (valorSeleccionado == 'run') {
+        var documento_d = document.getElementById('documento');
+        documento_d.removeAttribute('disabled');
+        documento_d.value = "";
+        documento.setAttribute('oninput', 'checkRut(this)');
+      } else {
+        const inputElement = document.getElementById('documento');
+        inputElement.removeAttribute('oninput');
+        inputElement.value = "";
+        inputElement.removeAttribute('disabled');
+      }
+      console.log('Valor seleccionado:', valorSeleccionado);
+    });
+  });
 
   function getCookie(name) {
     var value = "; " + document.cookie;
     var parts = value.split("; " + name + "=");
     if (parts.length == 2) return parts.pop().split(";").shift();
   }
+
+  $(document).on('change', '#frm_votacion input[type=email], input[type=text]', function(e) {
+    $(this).removeClass('is-invalid');
+  });
 
   var Fn = {
     // Valida el rut con su cadena completa "XXXXXXXX-X"
@@ -29,105 +55,6 @@ $(document).ready(function () {
       return S ? S - 1 : 'k';
     }
   }
-  var contenedor_vinna = document.getElementById('contenedor-vinnas')
-  contenedor_vinna.innerHTML = "<div style=\"display: flex; justify-content: center; align-items: center; height: 0px;\"><i class='fas fa-spin fa-spinner fa-10x'></i></div>";
-
-  $.ajax({
-    type: "GET",
-    url: "cargar_datos_votacion/",
-    // 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-    success: function (response) {
-      contenedor_vinna.innerHTML = ''
-      var vinnas = response.map(function (regionData) {
-
-        // Acceder a los datos de cada región y sus viñas
-        var contenedor_vinna = document.getElementById('contenedor-vinnas')
-        contenedor_vinna.innerHTML +=
-        ` 
-        <section class="contenedor-b row" style=" background: ${regionData.colorFondo} ;">
-<h1 class="col-md-3" style= "color: #FFFFFF;">${regionData.region}</h1>
-<section class=" col-md-3" style="padding: 27px;">
-<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[0]}',this)" src="${regionData.imagenViñas[0]}" style="width: 200px;
-height: 90px;
-/* UI Properties */
-
-border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[0]}></div>
-<div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
-<label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
-opacity: 1;">
-<input type="radio" class="color-radio" name="${regionData.id_region}" value="${regionData.id_viñas[0]}" style="accent-color: #617072;margin-top:18px; margin-left:-10px; z-index:3000;">
-</label>
-
-<label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
-  <div style="display: contents;position: relative;">
-      <div style="position: absolute;bottom: -27px;">
-          <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">${regionData.viñas[0]}</p>
-      </div>
-    <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class="">       
-  </span>
-  </div>       
-</label>
-</div>      
-</section>     
-
-<section class=" col-md-3" style="padding: 27px;">
-<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[1]}',this)" src="${regionData.imagenViñas[1]}" style="width: 200px;
-height: 90px;
-/* UI Properties */
-
-border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[1]}></div>
-<div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
-<label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
-opacity: 1;">
-<input type="radio" class="color-radio" name="${regionData.id_region}" value="${regionData.id_viñas[1]}" style="accent-color: #617072;margin-top:18px; margin-left:-10px; z-index:3000;">
-</label>
-
-<label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
-  <div style="display: contents;position: relative;">
-      <div style="position: absolute;bottom: -27px;">
-          <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">${regionData.viñas[1]}</p>
-      </div>
-    <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class="">       
-  </span>
-  </div>       
-</label>
-</div>      
-</section>          
-
-<section class=" col-md-3" style="padding: 27px;">
-<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[2]}',this)" src="${regionData.imagenViñas[2]}" style="width: 200px;
-height: 90px;
-/* UI Properties */
-
-border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[2]}></div>
-<div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
-<label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
-opacity: 1;">
-<input type="radio" class="color-radio" name="${regionData.id_region}" value="${regionData.id_viñas[2]}" style="accent-color: #617072;margin-top:18px; margin-left:-10px; z-index:3000;">
-</label>
-
-<label style="padding: 0%;width: 100%;position: absolute;place-content: center;" class="row">
-  <div style="display: contents;position: relative;">
-      <div style="position: absolute;bottom: -27px;">
-          <p class="nombre" style="margin-left: 24%;padding-bottom: 6px;padding: 10px;">${regionData.viñas[2]}</p>
-      </div>
-    <span style="position: absolute;width: 100%;left: 106px; bottom: 3px;" class="">       
-  </span>
-  </div>       
-</label>
-</div>      
-</section>         
-
-
-</section>            
-        `
-      });
-    },
-    error: function (error) {
-      console.log("Error en la solicitud AJAX:", error);
-    }
-  });
-
 
   var valoresSeleccionados = {};
 
@@ -140,121 +67,114 @@ opacity: 1;">
 
     // Guardar el valor seleccionado en la variable valoresSeleccionados
     valoresSeleccionados[nombreRadio] = valorSeleccionado;
+    const cantidadVotos = Object.entries(valoresSeleccionados).length;
+    if(cantidadVotos >= 3) {
+      $('#msj-votos').remove();
+      $('.btn-enviar').removeAttr('disabled');
+      return;
+    } else {
+      const votosRestantes = 3 - cantidadVotos;
+      $('#msj-votos').html(`Debes realizar al menos ${ votosRestantes == 1 ? votosRestantes + ' voto más' : votosRestantes + ' votos más' }.`);
+    }
   });
 
-  $("#envio_formulario").submit(function (event) {
-
+  $("#frm_votacion").submit(function (event) {
     // Prevenir el comportamiento predeterminado del formulario (enviarlo tradicionalmente)
     event.preventDefault();
     const radioButtons = document.getElementsByName('inp_tipo_id');
     let valorSeleccionado;
     for (const radioButton of radioButtons) {
-        if (radioButton.checked) {
-            valorSeleccionado = radioButton.value;
-            break; // Salir del bucle cuando encuentre el seleccionado
-        }
+      if (radioButton.checked) {
+        valorSeleccionado = radioButton.value;
+        break; // Salir del bucle cuando encuentre el seleccionado
+      }
     }
 
     // Mostrar el valor seleccionado en la consola
-    var csrfToken = getCookie('csrftoken');
-
-    var documento = $("#documento").val();
+    const csrfToken = getCookie('csrftoken');
     // Obtener los valores de los campos de entrada del formulario
-    var nombre = $("#nombre").val();
-    var correo = $("#correo").val();
-    var datos = {
+    const documento = $("#documento").val().replaceAll(' ', '');
+    const nombre = $("#nombre").val().trim();
+    const correo = $("#correo").val().replaceAll(' ', '');
+    const url = new URL(window.location.href);
+    const searchParams = url.searchParams;
+
+    const datos = {
       documento: documento,
       nombre: nombre,
       correo: correo,
-      opciones: valoresSeleccionados,
+      opciones: JSON.stringify(valoresSeleccionados),
+      tipo_categoria: parseInt(searchParams.get('tipo'))
     };
 
-    if (Fn.validaRut($("#documento").val()) && valorSeleccionado == 'run' ) {
-      if(nombre == null || nombre == undefined || nombre == ''){
-        var nombreVacio = document.getElementById('label-error_nombre');
-        nombreVacio.removeAttribute('hidden');
-      } else if (correo == null || correo == undefined || correo == ''){
-        var correoVacio = document.getElementById('label-error_correo');
-        correoVacio.removeAttribute('hidden');
-      }else{
-        $.ajax({
-          type: "POST",
-          url: "envio_datos_formulario/",
-          data: JSON.stringify(datos),
-          dataType: "json",
-          headers: {
-            'X-CSRFToken': csrfToken,  // Incluir el token CSRF como encabezado
-          },
-          success: function (response) {
-            if(response.data == 0){
-              var error_envio = document.getElementById("error_envio")
-              error_envio.textContent = response.message;
-              error_envio.hidden = false;
-            }       
-            else{
-              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
-  
-            }
-          }
-        });
+    let errors = false;
+
+    if(valorSeleccionado == 'run') { 
+      if(!Fn.validaRut($("#documento").val())){
+        const documento_el = $('#documento');
+        documento_el.addClass('is-invalid');
+        documento_el.next().html(`El ${valorSeleccionado} es inválido.`);
+        errors = true;
       }
-      
-    } 
-    else if(valorSeleccionado == 'pasaporte'){
-      if(nombre == null || nombre == undefined || nombre == ''){
-        var nombreVacio = document.getElementById('label-error_nombre');
-        nombreVacio.removeAttribute('hidden');
-      } else if (correo == null || correo == undefined || correo == ''){
-        var correoVacio = document.getElementById('label-error_correo');
-        correoVacio.removeAttribute('hidden');
-      }else{
-        $.ajax({
-          type: "POST",
-          url: "envio_datos_formulario/",
-          data: JSON.stringify(datos),
-          dataType: "json",
-          headers: {
-            'X-CSRFToken': csrfToken,  // Incluir el token CSRF como encabezado
-          },
-          success: function (response) {
-            if(response.data == 0){
-              var error_envio = document.getElementById("error_envio")
-              error_envio.textContent = response.message;
-              error_envio.hidden = false;
-            }       
-            else{
-              window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
-  
-            }
-          }
-        });
+    } else {
+      if(documento == null || documento == undefined || documento == '') {
+        const documento_el = $('#documento');
+        documento_el.addClass('is-invalid');
+        documento_el.next().html('El pasaporte es requerido.');
+        errors = true;
       }
-      
-
     }
-    else {
-      const labelError = document.getElementById("label-error");
-      labelError.hidden = false;
-      
+
+    if(nombre == null || nombre == undefined || nombre == '') {
+      const nombre_el = $('#nombre');
+      nombre_el.addClass('is-invalid');
+      nombre_el.next().html('El nombre es requerido.');
+      errors = true;
     }
-  });
 
+    if(correo == null || correo == undefined || correo == '') { 
+      const correo_el = $('#correo');
+      correo_el.addClass('is-invalid');
+      correo_el.next().html('El correo es requerido.');
+      errors = true;
+    }
 
+    if(errors) {
+      return;
+    }
 
-  // Manejar el evento click del botón
-  $('#boton_mostrar').click(function() {
-    // Alternar el atributo "hidden" al hacer clic (mostrar si está oculto, ocultar si está visible)
-    $('#cantidad_votos_en').prop('hidden', function(index, value) {
-      return !value;
+    // Realiza votacion
+    $.ajax({
+      type: "POST",
+      url: "categoria",
+      data: datos,
+      dataType: "json",
+      headers: {
+        'X-CSRFToken': csrfToken,  // Incluir el token CSRF como encabezado
+      },
+      beforeSend: function () {
+        mostrarSpinner();
+      },
+      success: function (response) {
+        if(response.ok) { // Si todo esta ok, redirecciona a sitio de votacion exitosa
+          window.parent.location.href = datos.tipo_categoria == 1 ? 'https://premiosenoturismochile.cl/votacion-exitosa/' : 'https://premiosenoturismochile.cl/votacion-exitosa-2/';
+        } else {
+          console.log(response)
+          Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: response.mensaje,
+          });
+        }
+      },
+      error: function (data) {
+        console.log(data);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Ocurrió un error inesperado al almacenar tu voto.',
+        });
+      },
     });
   });
-
-
-
-
-})
-
-
-
-
-
+});

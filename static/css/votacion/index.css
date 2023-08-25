@@ -1,6 +1,12 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@900&display=swap');
 
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    height: 100vh;
+    width: 100vw;
+}
 
 .font-ins {
     font-family: 'Tajawal', sans-serif;
@@ -14,8 +20,6 @@
     opacity: 1;
 }
 
-
-
 .circle {
     display: inline-block;
     width: 60px;
@@ -28,9 +32,7 @@
     top: 0;
     bottom: 0;
     margin: auto 0;
-
 }
-
 
 .circulo {
     display: flex;
@@ -43,8 +45,6 @@
     margin: 0 10px !important;
     width: 80% !important;
     color: #CADBDD;
-
-
 }
 
 .contenedor-b {
@@ -180,7 +180,6 @@
     margin: auto;
 }*/
 
-
-
-
-
+.swal2-container {
+    z-index: 999999;
+}
