@@ -38,8 +38,13 @@ $(document).ready(function () {
     url: "cargar_datos_votacion/",
     // 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
     success: function (response) {
+      if(!response.ok){
+        console.log('OCURRIO UN ERROR', response);
+        return;
+      }
+      
       contenedor_vinna.innerHTML = ''
-      var vinnas = response.map(function (regionData) {
+      var vinnas = response.data.map(function (regionData) {
 
         // Acceder a los datos de cada región y sus viñas
         var contenedor_vinna = document.getElementById('contenedor-vinnas')

@@ -58,55 +58,57 @@ def enviar_correo(remitente, asunto, mensaje_html, destinatario):
     server.quit() 
 
 def cargar_datos_votacion(request):
-    regiones = RegionesTest.objects.all()
-    vinnas = VinnasTest.objects.all()
-    lista_regiones = []
-    votos_experiencia = RegistroVotosTest.objects.filter(tipo_registro='experienciaENO')
-    votos = votos_experiencia.count()
-
-
-    tipo_registro = 'experienciaENO'
-    for region in regiones:
-        viñas_de_region = vinnas.filter(region=region, categoria=1)
-        total_votos_regio2n = RegistroVotosTest.objects.filter(region=region, vinna__in=viñas_de_region, tipo_registro=tipo_registro).count()
-        
-        # Solo si hay viñas en la región actual
-        if viñas_de_region:
-            viñas_data = []
+    response = { 'ok': False }
+    try:
+        regiones = RegionesTest.objects.all()
+        vinnas = VinnasTest.objects.all()
+        lista_regiones = []
+        votos_experiencia = RegistroVotosTest.objects.filter(tipo_registro='experienciaENO')
+        votos = votos_experiencia.count()
+        tipo_registro = 'experienciaENO'
+        for region in regiones:
+            viñas_de_region = vinnas.filter(region=region, categoria=1)
+            total_votos_regio2n = RegistroVotosTest.objects.filter(region=region, vinna__in=viñas_de_region, tipo_registro=tipo_registro).count()
             
-            for viña in viñas_de_region:
-                total_votos_vinna_por_region = RegistroVotosTest.objects.filter(region=region, vinna=viña, tipo_registro=tipo_registro).count()
-                porcentajer = (total_votos_vinna_por_region / total_votos_regio2n) * 100
-                porcentaje = round(porcentajer)
+            # Solo si hay viñas en la región actual
+            if viñas_de_region:
+                viñas_data = []
                 
-                viñas_data.append({
-                    'nombre_viña': viña.nombre_vinna,
-                    'imagen_viña': viña.img_url,
-                    'id_viña': viña.id,
-                    'porcentaje': porcentaje,
-                    'nVotos': total_votos_vinna_por_region
-                })
+                for viña in viñas_de_region:
+                    total_votos_vinna_por_region = RegistroVotosTest.objects.filter(region=region, vinna=viña, tipo_registro=tipo_registro).count()
+                    porcentajer = (total_votos_vinna_por_region / total_votos_regio2n) * 100
+                    porcentaje = round(porcentajer)
+                    
+                    viñas_data.append({
+                        'nombre_viña': viña.nombre_vinna,
+                        'imagen_viña': viña.img_url,
+                        'id_viña': viña.id,
+                        'porcentaje': porcentaje,
+                        'nVotos': total_votos_vinna_por_region
+                    })
 
-            random.shuffle(viñas_data)
-            nombre_viñas, imagen_viñas, id_viñas, porcentajes, nVotos = zip(*[(vd['nombre_viña'], vd['imagen_viña'], vd['id_viña'], vd['porcentaje'], vd['nVotos']) for vd in viñas_data])
-            region_data = {
-                'id_region': region.id,
-                'region': region.nombre_regiones,
-                'viñas': nombre_viñas,
-                'imagenViñas': imagen_viñas,
-                'id_viñas': id_viñas,
-                'colorFondo': region.color,
-                'colorCirculo': region.color_circulo,
-                'colorInterior': region.color_interior,
-                'votos_cantidad_experiencia':votos,
-                'porcentajes': porcentajes,
-                'nVotos': nVotos
-            }
+                random.shuffle(viñas_data)
+                nombre_viñas, imagen_viñas, id_viñas, porcentajes, nVotos = zip(*[(vd['nombre_viña'], vd['imagen_viña'], vd['id_viña'], vd['porcentaje'], vd['nVotos']) for vd in viñas_data])
+                region_data = {
+                    'id_region': region.id,
+                    'region': region.nombre_regiones,
+                    'viñas': nombre_viñas,
+                    'imagenViñas': imagen_viñas,
+                    'id_viñas': id_viñas,
+                    'colorFondo': region.color,
+                    'colorCirculo': region.color_circulo,
+                    'colorInterior': region.color_interior,
+                    'votos_cantidad_experiencia':votos,
+                    'porcentajes': porcentajes,
+                    'nVotos': nVotos
+                }
 
-            lista_regiones.append(region_data)
-
-    random.shuffle(lista_regiones)  # Esto reorganizará las regiones de manera aleatoria también
-    return JsonResponse(lista_regiones, safe=False)
+                lista_regiones.append(region_data)
+        random.shuffle(lista_regiones)  # Esto reorganizará las regiones de manera aleatoria también
+        response = { 'ok': True, 'data': lista_regiones }
+    except Exception as e:
+        response = { 'ok': False, 'error': e }
+    return JsonResponse(response, safe=False)
 
 def envio_datos_formulario(request):
     if request.method == 'POST':
