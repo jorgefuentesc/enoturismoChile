@@ -162,7 +162,8 @@ def envio_datos_formulario(request):
                         vinna_id=viñas_id[i],
                         region_id=regiones_id[i],
                         fecha_voto_act=fecha_formateada,
-                        hora_voto_act=hora_formateada
+                        hora_voto_act=hora_formateada,
+                        nombre=nombre.upper()
                     )
                 remitente_correo = correo
                 asunto_correo = '¡Gracias por votar!'

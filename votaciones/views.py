@@ -11,6 +11,8 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from .models import   RegionesTest, VinnasTest, RegistroVotosTest
 from django.http import HttpResponse, JsonResponse
+import pytz
+from datetime import datetime
 
 
 
@@ -124,7 +126,19 @@ def envio_datos_formulario(request):
         # Obtener solo los IDs (regiones)
         regiones_id = list(opciones.keys())
         tipo_registro = 'experienciaENO'
+        
+        zona_horaria = pytz.timezone('America/Santiago')
+    
+        # Obtener la fecha y hora actuales en la zona horaria de Santiago
+        fecha_actual = datetime.now(tz=zona_horaria)
+        hora_actual = datetime.now(tz=zona_horaria)
+        
+        # Formato de fecha "24/08/2023" (día/mes/año)
+        formato_hora = "%H:%M"
+        formato = "%d/%m/%Y"
 
+        fecha_formateada = fecha_actual.strftime(formato) 
+        hora_formateada = hora_actual.strftime(formato_hora)
 
         validacion_pasaporte = RegistroVotosTest.objects.filter(pasaporte=documento).first()
         validacion_correo = RegistroVotosTest.objects.filter(correo_electronico=correo).first()
@@ -148,6 +162,9 @@ def envio_datos_formulario(request):
                         pasaporte=documento,
                         vinna_id=viñas_id[i],
                         region_id=regiones_id[i],
+                        fecha_voto_act=fecha_formateada,
+                        hora_voto_act=hora_formateada,
+                        nombre=nombre.upper()
                     )
                 remitente_correo = correo
                 asunto_correo = '¡Gracias por votar!'
