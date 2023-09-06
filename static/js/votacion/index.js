@@ -1,7 +1,18 @@
 
 
 $(document).ready(function () {
-  console.log("ENTRA EN INDEX-VOTACION")
+  
+  // Despliega spinner de carga
+  function mostrarSpinner() {
+    Swal.fire({
+      imageUrl: '/static/img/progress.svg',
+      showCancelButton: false,
+      showConfirmButton: false,
+      allowOutsideClick: false,
+    });
+    $('.swal2-container.swal2-backdrop-show').css('background', 'rgba(255,255,255,.8)');
+    $('.swal2-popup').css('background', 'transparent');
+  }
 
   function getCookie(name) {
     var value = "; " + document.cookie;
@@ -57,7 +68,7 @@ $(document).ready(function () {
 height: 90px;
 /* UI Properties */
 
-border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[0]}></div>
+border-radius: 62px;" type="text" data-parametro="${regionData.id_viñas[0]}"></div>
 <div> ${regionData.porcentajes[0]}% (${ regionData.nVotos[0] } Votos)</div>
 <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
 <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
@@ -82,7 +93,7 @@ opacity: 1;">
 height: 90px;
 /* UI Properties */
 
-border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[1]}></div>
+border-radius: 62px;" type="text" data-parametro="${regionData.id_viñas[1]}"></div>
 <div> ${regionData.porcentajes[1]}% (${ regionData.nVotos[1] } Votos)</div>
 <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
 <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
@@ -107,7 +118,7 @@ opacity: 1;">
 height: 90px;
 /* UI Properties */
 
-border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[2]}></div>
+border-radius: 62px;" type="text" data-parametro="${regionData.id_viñas[2]}"></div>
 <div> ${regionData.porcentajes[2]}% (${ regionData.nVotos[2] } Votos)</div>
 <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
 <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
@@ -200,6 +211,9 @@ opacity: 1;">
             headers: {
               'X-CSRFToken': csrfToken,  // Incluir el token CSRF como encabezado
             },
+            beforeSend: function () {
+              mostrarSpinner();
+            },
             success: function (response) {
               if (response.data == 0) {
                 var error_envio = document.getElementById("error_envio")
@@ -210,7 +224,10 @@ opacity: 1;">
                 window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
 
               }
-            }
+            },
+            complete: function (event) {
+              swal.close();
+            },
           });
         }
 
@@ -231,6 +248,9 @@ opacity: 1;">
             headers: {
               'X-CSRFToken': csrfToken,  // Incluir el token CSRF como encabezado
             },
+            beforeSend: function () {
+              mostrarSpinner();
+            },
             success: function (response) {
               if (response.data == 0) {
                 var error_envio = document.getElementById("error_envio")
@@ -241,7 +261,10 @@ opacity: 1;">
                 window.parent.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
 
               }
-            }
+            },
+            complete: function (event) {
+              swal.close();
+            },
           });
         }
 
@@ -262,12 +285,12 @@ opacity: 1;">
 
 
   // Manejar el evento click del botón
-  $('#boton_mostrar').click(function () {
-    // Alternar el atributo "hidden" al hacer clic (mostrar si está oculto, ocultar si está visible)
-    $('#cantidad_votos_en').prop('hidden', function (index, value) {
-      return !value;
-    });
-  });
+  // $('#boton_mostrar').click(function () {
+  //   // Alternar el atributo "hidden" al hacer clic (mostrar si está oculto, ocultar si está visible)
+  //   $('#cantidad_votos_en').prop('hidden', function (index, value) {
+  //     return !value;
+  //   });
+  // });
 
 
 

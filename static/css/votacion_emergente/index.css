@@ -1,0 +1,21 @@
+.heading-title {
+    color: #D66316;
+    font-family: "afterglow_regular";
+    font-size: 65px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    border-left: solid 1rem #a7ba4f;
+    padding: 0 0 0 0.8rem;
+}
+
+.heading-subtitle {
+    color: #A4BA49;
+    font-family: "Tajawal";
+    font-size: 1.5em;
+    font-weight: 300;
+}
+
+.instrucciones {
+    font-family: "Tajawal";
+    color: #7a7a7a;
+}

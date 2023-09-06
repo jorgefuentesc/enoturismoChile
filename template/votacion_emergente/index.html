@@ -2,39 +2,35 @@
 {% load static %}
 
 {% block contenido %}
-
-
-
 {% block modal %}
 {% include 'modal/mdl-vista_vinna.html' %}
 {% endblock modal %}
 
-
-<div>
-  <button type="button" class="btn " id="boton_mostrar" style="background-color: #E58341 !important; border-color: #E58341 !important; color: #fff;" ><h3>
-    Mostrar cantidad de votos
-  </h3></button>
-<br>
-  <div id="cantidad">
-    <br>
-    <h3 id="cantidad_votos_em" style="font-family: 'Tajawal', sans-serif;" hidden>Votos totales Mejor Viña Emergente:  {{ votos }}</h3>
+<div class="row">
+  <div class="col-xs-12 m-5">
+    <h1 class="heading-title">Vota por la mejor viña emergente !</h1>        
+    <h2 class="heading-subtitle"><b>INSTRUCCIONES CATEGORIA MEJOR VIÑA EMERGENTE </b></h2>
+    <ol class="instrucciones">
+      <li>Revisa las diferentes empresas finalistas del concurso. Solo debes dar click sobre cada una de ellas y automáticamente aparecerá su información detallada.&nbsp;</li>
+      <li>Selecciona como mínimo tres diferentes empresas de tu preferencia en las distintas regiones disponibles y como máximo una experiencia por cada región.&nbsp;</li>
+      <li>Completa los campos con tu nombre completo, correo electrónico, Rut o pasaporte.</li>
+      <li>Confirma tu votación presionando el botón «Enviar votación» y ¡listo! Estarás participando por diferentes premios como empresas enoturisticas y canastas de productos regionales ¡Ya eres parte de los Premios Enoturismo Chile 2023!</li>
+    </ol>
   </div>
 </div>
-<br><br>
 
-
-
+<div class="row d-flex justify-content-center my-5">
+  <div class="rounded btn btn-primary" style="background-color: #C1632F !important;">
+    Total votos Mejor viña emergente <br>
+    <b> {{ votos }} </b> 
+  </div>
+</div>
 
 <form id="envio_formulario">
   {% csrf_token %}
   <div id="contenedor-vinnas" name="contenedor-vinnas">
-
   </div>
-
-
-
   <div>
-
     <div class="row" style="margin: 7%">
       <div class="col-md-6">
 

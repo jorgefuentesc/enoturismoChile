@@ -10,22 +10,25 @@
 {% endblock modal %}
 
 
-<div>
-  <button type="button" class="btn " id="boton_mostrar" style="background-color: #E58341 !important; border-color: #E58341 !important; color: #fff;"><h3>
-    Mostrar cantidad de votos
-  </h3></button>
-<br>
-  <div id="cantidad">
-    <br>
-    <h3 id="cantidad_votos_en" style="font-family: 'Tajawal', sans-serif;" hidden>Votos totales Experiencia enoturistica:  {{ votos }}</h3>
+<div class="row">
+  <div class="col-xs-12 m-5">
+    <h1 class="heading-title">Vota por la mejor experiencia enoturistica !</h1>        
+    <h2 class="heading-subtitle"><b>INSTRUCCIONES CATEGORIA MEJOR EXPERIENCIA ENOTURISTICA </b></h2>
+    <ol class="instrucciones">
+      <li>Revisa las diferentes experiencias finalistas del concurso. Solo debes dar click sobre cada una de ellas y automáticamente aparecerá su información detallada.&nbsp;</li>
+      <li>Selecciona como mínimo tres diferentes experiencias de tu preferencia en las distintas regiones disponibles y como máximo una experiencia por cada región.&nbsp;</li>
+      <li>Completa los campos con tu nombre completo, correo electrónico, Rut o pasaporte.</li>
+      <li>Confirma tu votación presionando el botón «Enviar votación» y ¡listo! Estarás participando por diferentes premios como experiencias enoturisticas y canastas de productos regionales ¡Ya eres parte de los Premios Enoturismo Chile 2023!</li>
+    </ol>
   </div>
 </div>
-<br><br>
 
-
-
-
-
+<div class="row d-flex justify-content-center my-5">
+  <div class="rounded btn btn-primary" style="background-color: #C1632F !important;">
+    Total votos Experiencia enoturistica <br>
+    <b> {{ votos }} </b> 
+  </div>
+</div>
 
 <form id="envio_formulario">
   {% csrf_token %}
@@ -33,11 +36,7 @@
     <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
     <i ></i></div>
   </div>
-
-
-
   <div>
-
     <div class="row" style="margin: 1%">
       <div class="col-md-6">
 
@@ -80,7 +79,7 @@
               <button class="btn-enviar " type="submit">
                 <p style="letter-spacing: 0.75px;
                 color: white;
-                opacity: 1;font-size: xx-large; text-align: center; ">Enviar Votación</p>
+                opacity: 1;font-size: xx-large; text-align: center; ">Enviar</p>
               </button><br>
               <label id="error_envio" style="color: red;" hidden>Ingrese un run valido</label>
             </div>
