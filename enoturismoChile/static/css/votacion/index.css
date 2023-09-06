@@ -1,0 +1,151 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@900&display=swap');
+
+
+.font-ins {
+    font-family: 'Tajawal', sans-serif;
+    top: 583px;
+    left: 195px;
+    width: 265px;
+    height: 62px;
+    text-align: left;
+    letter-spacing: 1.05px;
+    color: #4A4A4A;
+    opacity: 1;
+}
+
+
+
+.circle {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    line-height: 50px;
+    position: absolute;
+    left: -14px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+
+}
+
+
+.circulo {
+    display: flex;
+    align-items: center;
+    font-size: xx-large;
+    background: #6A6B4D 0% 0% no-repeat padding-box;
+    border-radius: 20px 0px 23px 33px;
+    height: 50px;
+    position: relative;
+    margin: 0 10px !important;
+    width: 222px !important;
+    color: #CADBDD;
+
+
+}
+
+.contenedor-b {
+    align-items: center;
+    width: auto;
+     height: auto;
+    opacity: 1;
+    text-align: -webkit-center;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.nombre {
+    font-size: 18px;
+    height: 100%;
+    line-height: 100%;
+    font-family: 'Tajawal', sans-serif;
+    margin: 0;
+}
+
+.color-radio {
+    margin-left: 15px;
+    margin-right: 20px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+}
+
+.formulario-fondo {
+    height: 716px;
+    background: #E0AC90 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.formulario-input {
+    height: 71px;
+    background: #F7ECE7 0% 0% no-repeat padding-box;
+    border-radius: 36px;
+    opacity: 1;
+}
+
+.btn-enviar {
+    width: 75%;
+    height: 71px;
+    background: #C1632F 0% 0% no-repeat padding-box;
+    border-radius: 36px;
+    opacity: 1;
+}
+
+.titulo_encabezado_form {
+    width: 100%;
+    height: 53px;
+    text-align: left;
+    letter-spacing: 0.9px;
+    color: #C1632F;
+    opacity: 1;
+    block-size: auto;
+}
+
+.titulo_input {
+    width: 191px;
+    height: 41px;
+    text-align: left;
+    letter-spacing: 0.75px;
+    color: #C1632F;
+    opacity: 1;
+    margin-left: 4%;
+}
+
+.titulo_form {
+    text-align: left;
+    letter-spacing: 0px;
+    color: #4A4A4A;
+    opacity: 1;
+    text-align: center;
+    padding-top: 20%;
+}
+
+.label_enviar {
+    bottom: 30%;
+    left: 28%;
+    position: absolute;
+    margin: 0 !important;
+}
+
+.disenno-modal {
+
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 0px 73px 73px 0px;
+    opacity: 1;
+}
+
+.rd_color {
+    accent-color: #C1632F;
+}
+
+.btn_mostrar_votos {
+    background: #C1632F 0% 0% no-repeat padding-box;
+    border-radius: 36px;
+    opacity: 1;
+} 
+/* .ajuste-tamanno {
+    width: 70%;
+    margin: auto;
+}

@@ -1,12 +1,6 @@
 import json
 import random
 import smtplib
-from smtplib import *
-
-
-import pytz
-from django.utils import timezone
-from datetime import datetime
 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -20,7 +14,6 @@ from django.http import HttpResponse, JsonResponse
 
 
 
-
 def index(request):
     # datos = WpqhUsers.objects.all()
     votos_experiencia = RegistroVotosTest.objects.filter(tipo_registro='experienciaENO')
@@ -30,31 +23,39 @@ def index(request):
 
 
 
-# def enviar_correo( asunto, mensaje_html, destinatario):
-#     try:
-#         smtp_server = "mail.premiosenoturismo.cl"
-#         smtp_port = 587  
-#         correo_gmail = "no-responder@premiosenoturismochile.cl"
-#         contrasena_gmail = "}$cn#A_X3[Lq"
-#         if not contrasena_gmail:
-#             print("no config")
-#             raise ValueError("La variable de entorno GMAIL_APP_PASSWORD no está configurada.")
-#         server = smtplib.SMTP(smtp_server, smtp_port)
-#         server.starttls()
-#         server.login(correo_gmail, contrasena_gmail)
-#         print("despues server login")
-#         msg = MIMEMultipart()
-#         msg['From'] = correo_gmail
-#         msg['To'] = destinatario
-#         msg['Subject'] = asunto
-#         msg.attach(MIMEText(mensaje_html, 'html', 'utf-8'))
-#         server.sendmail(correo_gmail, destinatario, msg.as_string())
-#         server.quit() 
+def enviar_correo(remitente, asunto, mensaje_html, destinatario):
+    # Configura la información del servidor SMTP de Gmail
+    smtp_server = "smtp.gmail.com"
+    smtp_port = 587  # El puerto de Gmail para TLS/STARTTLS
 
-#     except SMTPResponseException as e:
-#         print(e)
+    correo_gmail = "enoturismotest@gmail.com"
+    contrasena_gmail = "dbdffubzpprpwhfk"
+    # contrasena_gmail = "Testeno123"
 
-    
+    if not contrasena_gmail:
+        raise ValueError("La variable de entorno GMAIL_APP_PASSWORD no está configurada.")
+
+    # Crea una conexión segura con el servidor SMTP
+    server = smtplib.SMTP(smtp_server, smtp_port)
+    server.starttls()
+
+    # Inicia sesión en tu cuenta de Gmail con la "Contraseña de aplicaciones"
+    server.login(correo_gmail, contrasena_gmail)
+
+    # Crea el mensaje de correo electrónico en formato MIMEText
+    msg = MIMEMultipart()
+    msg['From'] = remitente
+    msg['To'] = destinatario
+    msg['Subject'] = asunto
+
+    # Agrega el cuerpo del mensaje como parte del mensaje MIMEText
+    msg.attach(MIMEText(mensaje_html, 'html', 'utf-8'))
+
+    # Envía el correo electrónico
+    server.sendmail(correo_gmail, destinatario, msg.as_string())
+
+    # Cierra la conexión con el servidor SMTP
+    server.quit() 
 
 def cargar_datos_votacion(request):
     regiones = RegionesTest.objects.all()
@@ -62,38 +63,45 @@ def cargar_datos_votacion(request):
     lista_regiones = []
     votos_experiencia = RegistroVotosTest.objects.filter(tipo_registro='experienciaENO')
     votos = votos_experiencia.count()
-    
-    
-    # 1 mjr exp
-    # 2 vinna emegente
-    # tipo_vinna_categoria = VinnasTest.objects.filter(categoria=1)
 
+
+    tipo_registro = 'experienciaENO'
     for region in regiones:
-        if region.regiones_vigencia == 1:
-            viñas_de_region = vinnas.filter(region=region, categoria=1)
-            if viñas_de_region:
-                viñas_data = list(zip([viña.nombre_vinna for viña in viñas_de_region],
-                                [viña.img_url for viña in viñas_de_region],
-                                [viña.id for viña in viñas_de_region]))
+        viñas_de_region = vinnas.filter(region=region, categoria=1)
+        total_votos_regio2n = RegistroVotosTest.objects.filter(region=region, vinna__in=viñas_de_region, tipo_registro=tipo_registro).count()
+        
+        # Solo si hay viñas en la región actual
+        if viñas_de_region:
+            viñas_data = []
             
-                random.shuffle(viñas_data)  # Reorganizar la lista de viñas aleatoriamente  
+            for viña in viñas_de_region:
+                total_votos_vinna_por_region = RegistroVotosTest.objects.filter(region=region, vinna=viña, tipo_registro=tipo_registro).count()
+                porcentajer = (total_votos_vinna_por_region / total_votos_regio2n) * 100
+                porcentaje = round(porcentajer)
                 
-                if viñas_data:
-                    nombre_viñas, imagen_viñas, id_viñas = zip(*viñas_data)   
-                else:
-                    print("datos insuficifientes")
-                region_data = {
-                    'id_region': region.id,
-                    'region': region.nombre_regiones,
-                    'viñas': nombre_viñas,
-                    'imagenViñas': imagen_viñas,
-                    'id_viñas': id_viñas,
-                    'colorFondo': region.color,
-                    'colorCirculo': region.color_circulo,
-                    'colorInterior': region.color_interior,
-                    'votos_cantidad_experiencia':votos
-                }
-                lista_regiones.append(region_data)
+                viñas_data.append({
+                    'nombre_viña': viña.nombre_vinna,
+                    'imagen_viña': viña.img_url,
+                    'id_viña': viña.id,
+                    'porcentaje': porcentaje,
+                })
+
+            random.shuffle(viñas_data)
+            nombre_viñas, imagen_viñas, id_viñas, porcentajes = zip(*[(vd['nombre_viña'], vd['imagen_viña'], vd['id_viña'], vd['porcentaje']) for vd in viñas_data])
+            region_data = {
+                'id_region': region.id,
+                'region': region.nombre_regiones,
+                'viñas': nombre_viñas,
+                'imagenViñas': imagen_viñas,
+                'id_viñas': id_viñas,
+                'colorFondo': region.color,
+                'colorCirculo': region.color_circulo,
+                'colorInterior': region.color_interior,
+                'votos_cantidad_experiencia':votos,
+                'porcentajes': porcentajes,
+            }
+
+            lista_regiones.append(region_data)
 
     random.shuffle(lista_regiones)  # Esto reorganizará las regiones de manera aleatoria también
     return JsonResponse(lista_regiones, safe=False)
@@ -113,21 +121,6 @@ def envio_datos_formulario(request):
         regiones_id = list(opciones.keys())
         tipo_registro = 'experienciaENO'
 
-        print("entra dps tipo regs")
-
-        zona_horaria = pytz.timezone('America/Santiago')
-    
-        # Obtener la fecha y hora actuales en la zona horaria de Santiago
-        fecha_actual = datetime.now(tz=zona_horaria)
-        hora_actual = datetime.now(tz=zona_horaria)
-        
-        # Formato de fecha "24/08/2023" (día/mes/año)
-        formato_hora = "%H:%M"
-        formato = "%d/%m/%Y"
-
-        fecha_formateada = fecha_actual.strftime(formato) 
-        hora_formateada = hora_actual.strftime(formato_hora)
-
 
         validacion_pasaporte = RegistroVotosTest.objects.filter(pasaporte=documento).first()
         validacion_correo = RegistroVotosTest.objects.filter(correo_electronico=correo).first()
@@ -140,13 +133,10 @@ def envio_datos_formulario(request):
         estado = 0
         print("acos")
         if len(viñas_id) >=3:
-            print("largo")
             if registro_validado and pasaporte:
                 estado = 0
                 mensaje = ' el rut asociado al voto ya fue registrado anteriormente '
-                print("validacion rut ")
             else:
-                print("else validacion rut ")
                 for i in range(len(viñas_id)):
                     registro = RegistroVotosTest.objects.create(
                         tipo_registro='experienciaENO',
@@ -154,11 +144,7 @@ def envio_datos_formulario(request):
                         pasaporte=documento,
                         vinna_id=viñas_id[i],
                         region_id=regiones_id[i],
-                        fecha_voto_act=fecha_formateada,
-                        hora_voto_act=hora_formateada
-
                     )
-                print("agredecimiento ")
                 remitente_correo = correo
                 asunto_correo = '¡Gracias por votar!'
                 # mensaje_html = "<h3>Gracias por votar {{  }}!!!</h3>"
@@ -223,7 +209,7 @@ def envio_datos_formulario(request):
 </html>
 
                 """
-
+                enviar_correo(remitente_correo, asunto_correo, mensaje_html, correo)
                 mensaje = 'Votacion exitosa.'
                 estado = 1
         else:
@@ -232,7 +218,6 @@ def envio_datos_formulario(request):
         response_data = {
             'message': mensaje,
             'data': estado,
-            'dato_t':'experienciaENO',
         }
         return JsonResponse(response_data)
     
