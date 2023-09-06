@@ -55,39 +55,50 @@ def index(request):
 #         print(e)
 
 def cargar_datos_votacion(request):
-    regiones = RegionesTest.objects.all()
+    regiones = RegionesTest.objects.filter(regiones_vigencia=1)
     vinnas = VinnasTest.objects.all()
     lista_regiones = []
     votos_emergente = RegistroVotosTest.objects.filter(tipo_registro='viñaEmergente')
     votos = votos_emergente.count() if votos_emergente else 0
-    print(votos)
 
+    tipo_registro = 'viñaEmergente'
     for region in regiones:
-        if region.regiones_vigencia == 1:
-            viñas_de_region = vinnas.filter(region=region, categoria=2)
-            if viñas_de_region:
-                viñas_data = list(zip([viña.nombre_vinna for viña in viñas_de_region],
-                                [viña.img_url for viña in viñas_de_region],
-                                [viña.id for viña in viñas_de_region]))
+        viñas_de_region = vinnas.filter(region=region, categoria=2)
+        total_votos_regio2n = RegistroVotosTest.objects.filter(region=region, vinna__in=viñas_de_region, tipo_registro=tipo_registro).count()
+        
+        if viñas_de_region:
+            viñas_data = []
             
-                random.shuffle(viñas_data)  # Reorganizar la lista de viñas aleatoriamente  
+            for viña in viñas_de_region:
+                total_votos_vinna_por_region = RegistroVotosTest.objects.filter(region=region, vinna=viña, tipo_registro=tipo_registro).count()
+                porcentajer = (total_votos_vinna_por_region / total_votos_regio2n) * 100
+                porcentaje = round(porcentajer)
                 
-                if viñas_data:
-                    nombre_viñas, imagen_viñas, id_viñas = zip(*viñas_data)   
-                else:
-                    print("datos insuficifientes")
-                region_data = {
-                    'id_region': region.id,
-                    'region': region.nombre_regiones,
-                    'viñas': nombre_viñas,
-                    'imagenViñas': imagen_viñas,
-                    'id_viñas': id_viñas,
-                    'colorFondo': region.color,
-                    'colorCirculo': region.color_circulo,
-                    'colorInterior': region.color_interior,
-                    'votos_cantidad_experiencia':votos
-                }
-                lista_regiones.append(region_data)
+                viñas_data.append({
+                    'nombre_viña': viña.nombre_vinna,
+                    'imagen_viña': viña.img_url,
+                    'id_viña': viña.id,
+                    'porcentaje': porcentaje,
+                    'nVotos': total_votos_vinna_por_region
+                })
+
+            random.shuffle(viñas_data)
+            nombre_viñas, imagen_viñas, id_viñas, porcentajes, nVotos = zip(*[(vd['nombre_viña'], vd['imagen_viña'], vd['id_viña'], vd['porcentaje'], vd['nVotos']) for vd in viñas_data])
+            region_data = {
+                'id_region': region.id,
+                'region': region.nombre_regiones,
+                'viñas': nombre_viñas,
+                'imagenViñas': imagen_viñas,
+                'id_viñas': id_viñas,
+                'colorFondo': region.color,
+                'colorCirculo': region.color_circulo,
+                'colorInterior': region.color_interior,
+                'votos_cantidad_experiencia':votos,
+                'porcentajes': porcentajes,
+                'nVotos': nVotos
+            }
+        
+            lista_regiones.append(region_data)
 
     random.shuffle(lista_regiones)  # Esto reorganizará las regiones de manera aleatoria también
     return JsonResponse(lista_regiones, safe=False)

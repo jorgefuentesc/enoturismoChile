@@ -79,7 +79,7 @@ function fn_datos_para_mdl(p,e) {
                 // $('#mdl-vista_vinna').modal({backdrop: 'static', keyboard: false});
                 $('#mdl-vista_vinna').modal('show');
                 // $('#myModal').modal({backdrop: 'static', keyboard: false})
-                modal.style.top = e.getBoundingClientRect().top + "px";
+                // modal.style.top = e.getBoundingClientRect().top + "px";
                 
 
             }

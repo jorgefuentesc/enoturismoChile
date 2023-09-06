@@ -47,11 +47,12 @@ $(document).ready(function () {
         <section class="contenedor-b row" style=" background: ${regionData.colorFondo} ;">
 <h1 class="col-md-3" style= "color: #FFFFFF;">${regionData.region}</h1>
 <section class=" col-md-3" style="padding: 27px;">
-<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[0]}',this)" src="${regionData.imagenViñas[0]}" style="width: 200px;
+<div class="row " style="justify-content: center;margin-bottom: 20px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[0]}',this)" src="${regionData.imagenViñas[0]}" style="width: 200px;
 height: 90px;
 /* UI Properties */
 
 border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[0]}></div>
+<div> ${regionData.porcentajes[0]}% (${ regionData.nVotos[0] } Votos)</div>
 <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
 <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
 opacity: 1;">
@@ -71,11 +72,12 @@ opacity: 1;">
 </section>     
 
 <section class=" col-md-3" style="padding: 27px;">
-<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[1]}',this)" src="${regionData.imagenViñas[1]}" style="width: 200px;
+<div class="row " style="justify-content: center;margin-bottom: 20px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[1]}',this)" src="${regionData.imagenViñas[1]}" style="width: 200px;
 height: 90px;
 /* UI Properties */
 
 border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[1]}></div>
+<div> ${regionData.porcentajes[1]}% (${ regionData.nVotos[1] } Votos)</div>
 <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
 <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
 opacity: 1;">
@@ -95,11 +97,12 @@ opacity: 1;">
 </section>          
 
 <section class=" col-md-3" style="padding: 27px;">
-<div class="row " style="justify-content: center;margin-bottom: 40px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[2]}',this)" src="${regionData.imagenViñas[2]}" style="width: 200px;
+<div class="row " style="justify-content: center;margin-bottom: 20px;margin-top: -18px;"><img class="hover-element" onclick="fn_datos_para_mdl('${regionData.id_viñas[2]}',this)" src="${regionData.imagenViñas[2]}" style="width: 200px;
 height: 90px;
 /* UI Properties */
 
 border-radius: 62px;" type="text" data-parametro= ${regionData.id_viñas[2]}></div>
+<div> ${regionData.porcentajes[2]}% (${ regionData.nVotos[2] } Votos)</div>
 <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
 <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
 opacity: 1;">

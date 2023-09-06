@@ -84,10 +84,11 @@ def cargar_datos_votacion(request):
                     'imagen_viña': viña.img_url,
                     'id_viña': viña.id,
                     'porcentaje': porcentaje,
+                    'nVotos': total_votos_vinna_por_region
                 })
 
             random.shuffle(viñas_data)
-            nombre_viñas, imagen_viñas, id_viñas, porcentajes = zip(*[(vd['nombre_viña'], vd['imagen_viña'], vd['id_viña'], vd['porcentaje']) for vd in viñas_data])
+            nombre_viñas, imagen_viñas, id_viñas, porcentajes, nVotos = zip(*[(vd['nombre_viña'], vd['imagen_viña'], vd['id_viña'], vd['porcentaje'], vd['nVotos']) for vd in viñas_data])
             region_data = {
                 'id_region': region.id,
                 'region': region.nombre_regiones,
@@ -99,6 +100,7 @@ def cargar_datos_votacion(request):
                 'colorInterior': region.color_interior,
                 'votos_cantidad_experiencia':votos,
                 'porcentajes': porcentajes,
+                'nVotos': nVotos
             }
 
             lista_regiones.append(region_data)
