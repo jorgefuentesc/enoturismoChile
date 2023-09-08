@@ -6,7 +6,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 from django.shortcuts import render
-
+from django.conf import settings
 # Create your views here.
 from django.shortcuts import render, redirect
 from .models import   RegionesTest, VinnasTest, RegistroVotosTest
@@ -25,28 +25,21 @@ def index(request):
 
 
 
-def enviar_correo(remitente, asunto, mensaje_html, destinatario):
+def enviar_correo(asunto, mensaje_html, destinatario):
     # Configura la información del servidor SMTP de Gmail
     smtp_server = "smtp.gmail.com"
     smtp_port = 587  # El puerto de Gmail para TLS/STARTTLS
-
-    correo_gmail = "enoturismotest@gmail.com"
-    contrasena_gmail = "dbdffubzpprpwhfk"
-    # contrasena_gmail = "Testeno123"
-
-    if not contrasena_gmail:
-        raise ValueError("La variable de entorno GMAIL_APP_PASSWORD no está configurada.")
 
     # Crea una conexión segura con el servidor SMTP
     server = smtplib.SMTP(smtp_server, smtp_port)
     server.starttls()
 
     # Inicia sesión en tu cuenta de Gmail con la "Contraseña de aplicaciones"
-    server.login(correo_gmail, contrasena_gmail)
+    server.login(settings.EMAIL, settings.PASSWORD_EMAIL)
 
     # Crea el mensaje de correo electrónico en formato MIMEText
     msg = MIMEMultipart()
-    msg['From'] = remitente
+    msg['From'] = 'ENOTURISMO'
     msg['To'] = destinatario
     msg['Subject'] = asunto
 
@@ -54,13 +47,14 @@ def enviar_correo(remitente, asunto, mensaje_html, destinatario):
     msg.attach(MIMEText(mensaje_html, 'html', 'utf-8'))
 
     # Envía el correo electrónico
-    server.sendmail(correo_gmail, destinatario, msg.as_string())
+    server.sendmail(settings.EMAIL, destinatario, msg.as_string())
 
     # Cierra la conexión con el servidor SMTP
     server.quit() 
 
 def cargar_datos_votacion(request):
     response = { 'ok': False }
+
     try:
         regiones = RegionesTest.objects.all()
         vinnas = VinnasTest.objects.all()
@@ -149,7 +143,7 @@ def envio_datos_formulario(request):
         registro_validado = registro.tipo_registro if registro else None
         mensaje = ''
         estado = 0
-        print("acos")
+
         if len(viñas_id) >=3:
             if registro_validado and pasaporte:
                 estado = 0
@@ -166,71 +160,68 @@ def envio_datos_formulario(request):
                         hora_voto_act=hora_formateada,
                         nombre=nombre.upper()
                     )
-                # remitente_correo = correo
-                # asunto_correo = '¡Gracias por votar!'
-                # mensaje_html = "<h3>Gracias por votar {{  }}!!!</h3>"
-                # mensaje_html = f"""
-#                 <html>
-# 	<head>
-# 		<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
-# 	</head>
-# <body>
-# <table align="center" style="background:#efefef; width: 100%;">
-# 	<td>
-
-# 	<table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif">
-# 	<tr><td><hr style="height: 1px; width: 695px; background-color: #888888; margin: 0px; border: 0px;"></td></tr>
-# 	</table>
+                asunto_correo = '¡Gracias por votar!'
+                mensaje_html = f"""
+                <html>
+                    <head>
+                        <meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
+                    </head>
+                <body>
+                <table align="center" style="background:#efefef; width: 100%;">
+                    <td> 
+                        <table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif">
+                    <tr>
+                        <td>
+                        <hr style="height: 1px; width: 695px; background-color: #888888; margin: 0px; border: 0px;">
+                        </td>
+                    </tr>
+                </table>
 	    
-# <table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif; background-color: #000;">
-# <tr>
-# 	<td style="background-color: rgb(255, 251, 251); padding: 30px; margin-bottom: 30px;"><center><img alt="imagen" src="https://premiosenoturismochile.cl/wp-content/uploads/2023/04/Nuevo-logo-2023-naranjo-1024x572.png" width="150" height="84" style="display: block; border: 0px; margin: 0px;"/></center></td>
+<table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif; background-color: #000;">
+<tr>
+	<td style="background-color: rgb(255, 251, 251); padding: 30px; margin-bottom: 30px;"><center><img alt="imagen" src="https://premiosenoturismochile.cl/wp-content/uploads/2023/04/Nuevo-logo-2023-naranjo-1024x572.png" width="150" height="84" style="display: block; border: 0px; margin: 0px;"/></center></td>
 	
-# </tr>
-# <tr><td><hr style="height: 0px; width: 695px; background-color: #888888; margin: 0px; border: 0px;"></td></tr>
-#         </table>
+</tr>
+<tr><td><hr style="height: 0px; width: 695px; background-color: #888888; margin: 0px; border: 0px;"></td></tr>
+        </table>
 		
-# 	<table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-seri">
-# 		<tr style="background-color: #fff;">
-# 		  <td height="100">
-# 		  <ul style="list-style-type:none; margin:0px; border:none;">
-# 		  <li style=" font:museo; font-weight: bold; text-align: justify; font-size:18px; color:#005E7C; padding:20px 40px 0px 0px; margin:0px; line-height: 20px;"><br>Hola {nombre}</li>
-# 		<li style="font:Panton-regular; text-align: justify; font-size:14px; color:#454545; padding:15px 40px 0px 0px; margin:0px; line-height: 20px;">
-# 			Gracias por participar en la votación de los Premios Enoturismo Chile 2023.
-# 			<br><br>
-# 			¡Tus preferencias para la categoría, Mejor Experiencia Enoturistica, han sido registradas exitosamente!.
-# 			<br><br>
-# 			Qué suerte, desde ahora ya te encuentras participando para acceder a una de las fabulosas Experiencias Enoturísticas o Canastas de Productos Regionales que se sortearán en los próximos días.
-# 			<br><br>
-# 			No olvides estar atentos a nuestras redes sociales y enterarte de los resultados de los ganadores de los <a href="https://premiosenoturismochile.cl">#premiosenoturismochile2023</a>.
-# 			<br><br>
-# 			Atentamente, equipo Enoturismo Chile. 
-# 			<br><br>
-# 			<a href="https://premiosenoturismochile.cl">www.premiosenoturismochile.cl</a>
-# 			<br><br>
-# 			<a href="https://www.enoturismochile.cl">www.enoturismochile.cl</a>
-# 		</li>
-# 		<br><br>
-# 		</ul>
-# 		  </td>
-# 		</tr>
-# 		  </table>
+	<table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-seri">
+		<tr style="background-color: #fff;">
+		  <td height="100">
+		  <ul style="list-style-type:none; margin:0px; border:none;">
+		  <li style=" font:museo; font-weight: bold; text-align: justify; font-size:18px; color:#005E7C; padding:20px 40px 0px 0px; margin:0px; line-height: 20px;"><br>Hola {nombre}</li>
+		<li style="font:Panton-regular; text-align: justify; font-size:14px; color:#454545; padding:15px 40px 0px 0px; margin:0px; line-height: 20px;">
+			Gracias por participar en la votación de los Premios Enoturismo Chile 2023.
+			<br><br>
+			¡Tus preferencias para la categoría, Mejor Experiencia Enoturistica, han sido registradas exitosamente!.
+			<br><br>
+			Qué suerte, desde ahora ya te encuentras participando para acceder a una de las fabulosas Experiencias Enoturísticas o Canastas de Productos Regionales que se sortearán en los próximos días.
+			<br><br>
+			No olvides estar atentos a nuestras redes sociales y enterarte de los resultados de los ganadores de los <a href="https://premiosenoturismochile.cl">#premiosenoturismochile2023</a>.
+			<br><br>
+			Atentamente, equipo Enoturismo Chile. 
+			<br><br>
+			<a href="https://premiosenoturismochile.cl">www.premiosenoturismochile.cl</a>
+			<br><br>
+			<a href="https://www.enoturismochile.cl">www.enoturismochile.cl</a>
+		</li>
+		<br><br>
+		</ul>
+		  </td>
+		</tr>
+		  </table>
 		
-# 		<table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif; background:#efefef;">
-#   		<tr>
-# 			<td width="274" style="text-align:center;"><img alt="utem" src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/footer2-e1692756440961.jpg" /></td>
+		<table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif; background:#efefef;">
+  		<tr>
+			<td width="274" style="text-align:center;"><img alt="utem" src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/footer2-e1692756440961.jpg" /></td>
 			
-# 		</tr>
-# 		</table>					
-			 
-					
-		
-# 	</table>
-# </body>
-# </html>
-
-#                 """
-#                 enviar_correo(remitente_correo, asunto_correo, mensaje_html, correo)
+		</tr>
+		</table>					
+	</table>
+</body>
+</html>
+                """
+                enviar_correo(asunto_correo, mensaje_html, correo)
                 mensaje = 'Votacion exitosa.'
                 estado = 1
         else:
