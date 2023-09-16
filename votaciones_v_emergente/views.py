@@ -98,7 +98,9 @@ def cargar_datos_votacion(request):
 
 def envio_datos_formulario(request):
     if request.method == 'POST':
-        
+        # Se recupera navegador e ip de usuario que vota
+        browser = request.META.get('HTTP_USER_AGENT')
+        ip_votante = request.META.get('HTTP_X_FORWARDED_FOR').split(',')[0] if request.META.get('HTTP_X_FORWARDED_FOR') is not None else request.META.get('REMOTE_ADDR')
         # Obtener los datos enviados en el cuerpo de la solicitud JSON
         data = json.loads(request.body)
         correo = data.get('correo', None)
@@ -150,7 +152,9 @@ def envio_datos_formulario(request):
                         region_id=regiones_id[i],
                         fecha_voto_act=fecha_formateada,
                         hora_voto_act=hora_formateada,
-                        nombre=nombre.upper()
+                        nombre=nombre.upper(),
+                        ip_votante=ip_votante,
+                        browser=browser
                     )
 
                 mensaje = 'Votacion exitosa.'
