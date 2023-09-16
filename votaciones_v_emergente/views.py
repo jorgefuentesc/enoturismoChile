@@ -30,30 +30,33 @@ def index(request):
 
 def enviar_correo(asunto, mensaje_html, destinatario):
     # Configura la información del servidor SMTP de Gmail
-    smtp_server = "smtp.gmail.com"
-    smtp_port = 587  # El puerto de Gmail para TLS/STARTTLS
+    # smtp_server = "smtp.gmail.com"
+    # smtp_port = 587  # El puerto de Gmail para TLS/STARTTLS
 
     # Crea una conexión segura con el servidor SMTP
-    server = smtplib.SMTP(smtp_server, smtp_port)
-    server.starttls()
+    # server = smtplib.SMTP(smtp_server, smtp_port)
+    # server.starttls()
 
     # Inicia sesión en tu cuenta de Gmail con la "Contraseña de aplicaciones"
-    server.login(settings.EMAIL, settings.PASSWORD_EMAIL)
+    # server.login(settings.EMAIL, settings.PASSWORD_EMAIL)
+    # server.login('Info@enoturismochile.cl', 'InfoETCH2023!')
 
     # Crea el mensaje de correo electrónico en formato MIMEText
-    msg = MIMEMultipart()
-    msg['From'] = 'ENOTURISMO'
-    msg['To'] = destinatario
-    msg['Subject'] = asunto
+    # msg = MIMEMultipart()
+    # msg['From'] = 'ENOTURISMO'
+    # msg['To'] = destinatario
+    # msg['Subject'] = asunto
 
     # Agrega el cuerpo del mensaje como parte del mensaje MIMEText
-    msg.attach(MIMEText(mensaje_html, 'html', 'utf-8'))
+    # msg.attach(MIMEText(mensaje_html, 'html', 'utf-8'))
 
     # Envía el correo electrónico
-    server.sendmail(settings.EMAIL, destinatario, msg.as_string())
+    # server.sendmail(settings.EMAIL, destinatario, msg.as_string())
+    # server.sendmail('Info@enoturismochile.cl', destinatario, msg.as_string())
 
     # Cierra la conexión con el servidor SMTP
-    server.quit() 
+    # server.quit() 
+    print('...')
 
 def cargar_datos_votacion(request):
     response = { 'ok': False }
