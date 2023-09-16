@@ -68,7 +68,6 @@ height: 90px;
 /* UI Properties */
 
 border-radius: 62px;" type="text" data-parametro="${regionData.id_viñas[0]}"></div>
-<div> ${regionData.porcentajes[0]}% (${ regionData.nVotos[0] } Votos)</div>
 <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
 <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
 opacity: 1;">
@@ -93,7 +92,6 @@ height: 90px;
 /* UI Properties */
 
 border-radius: 62px;" type="text" data-parametro="${regionData.id_viñas[1]}"></div>
-<div> ${regionData.porcentajes[1]}% (${ regionData.nVotos[1] } Votos)</div>
 <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
 <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
 opacity: 1;">
@@ -118,7 +116,6 @@ height: 90px;
 /* UI Properties */
 
 border-radius: 62px;" type="text" data-parametro="${regionData.id_viñas[2]}"></div>
-<div> ${regionData.porcentajes[2]}% (${ regionData.nVotos[2] } Votos)</div>
 <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
 <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
 opacity: 1;">

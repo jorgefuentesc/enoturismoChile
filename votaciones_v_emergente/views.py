@@ -30,33 +30,30 @@ def index(request):
 
 def enviar_correo(asunto, mensaje_html, destinatario):
     # Configura la información del servidor SMTP de Gmail
-    # smtp_server = "smtp.gmail.com"
-    # smtp_port = 587  # El puerto de Gmail para TLS/STARTTLS
+    smtp_server = "smtp.gmail.com"
+    smtp_port = 587  # El puerto de Gmail para TLS/STARTTLS
 
     # Crea una conexión segura con el servidor SMTP
-    # server = smtplib.SMTP(smtp_server, smtp_port)
-    # server.starttls()
+    server = smtplib.SMTP(smtp_server, smtp_port)
+    server.starttls()
 
     # Inicia sesión en tu cuenta de Gmail con la "Contraseña de aplicaciones"
-    # server.login(settings.EMAIL, settings.PASSWORD_EMAIL)
-    # server.login('Info@enoturismochile.cl', 'InfoETCH2023!')
+    server.login(settings.EMAIL, settings.PASSWORD_EMAIL)
 
     # Crea el mensaje de correo electrónico en formato MIMEText
-    # msg = MIMEMultipart()
-    # msg['From'] = 'ENOTURISMO'
-    # msg['To'] = destinatario
-    # msg['Subject'] = asunto
+    msg = MIMEMultipart()
+    msg['From'] = 'ENOTURISMO'
+    msg['To'] = destinatario
+    msg['Subject'] = asunto
 
     # Agrega el cuerpo del mensaje como parte del mensaje MIMEText
-    # msg.attach(MIMEText(mensaje_html, 'html', 'utf-8'))
+    msg.attach(MIMEText(mensaje_html, 'html', 'utf-8'))
 
     # Envía el correo electrónico
-    # server.sendmail(settings.EMAIL, destinatario, msg.as_string())
-    # server.sendmail('Info@enoturismochile.cl', destinatario, msg.as_string())
+    server.sendmail(settings.EMAIL, destinatario, msg.as_string())
 
     # Cierra la conexión con el servidor SMTP
-    # server.quit() 
-    print('...')
+    server.quit() 
 
 def cargar_datos_votacion(request):
     response = { 'ok': False }
@@ -66,30 +63,19 @@ def cargar_datos_votacion(request):
         lista_regiones = []
         votos_emergente = RegistroVotosTest.objects.filter(tipo_registro='viñaEmergente')
         votos = votos_emergente.count() if votos_emergente else 0
-
         tipo_registro = 'viñaEmergente'
         for region in regiones:
             viñas_de_region = vinnas.filter(region=region, categoria=2)
-            total_votos_regio2n = RegistroVotosTest.objects.filter(region=region, vinna__in=viñas_de_region, tipo_registro=tipo_registro).count()
-            
             if viñas_de_region:
                 viñas_data = []
-                
                 for viña in viñas_de_region:
-                    total_votos_vinna_por_region = RegistroVotosTest.objects.filter(region=region, vinna=viña, tipo_registro=tipo_registro).count()
-                    porcentajer = (total_votos_vinna_por_region / total_votos_regio2n) * 100
-                    porcentaje = round(porcentajer)
-                    
                     viñas_data.append({
                         'nombre_viña': viña.nombre_vinna,
                         'imagen_viña': viña.img_url,
                         'id_viña': viña.id,
-                        'porcentaje': porcentaje,
-                        'nVotos': total_votos_vinna_por_region
                     })
-
                 random.shuffle(viñas_data)
-                nombre_viñas, imagen_viñas, id_viñas, porcentajes, nVotos = zip(*[(vd['nombre_viña'], vd['imagen_viña'], vd['id_viña'], vd['porcentaje'], vd['nVotos']) for vd in viñas_data])
+                nombre_viñas, imagen_viñas, id_viñas = zip(*[(vd['nombre_viña'], vd['imagen_viña'], vd['id_viña']) for vd in viñas_data])
                 region_data = {
                     'id_region': region.id,
                     'region': region.nombre_regiones,
@@ -100,10 +86,7 @@ def cargar_datos_votacion(request):
                     'colorCirculo': region.color_circulo,
                     'colorInterior': region.color_interior,
                     'votos_cantidad_experiencia':votos,
-                    'porcentajes': porcentajes,
-                    'nVotos': nVotos
                 }
-            
                 lista_regiones.append(region_data)
 
         random.shuffle(lista_regiones)  # Esto reorganizará las regiones de manera aleatoria también
@@ -169,64 +152,7 @@ def envio_datos_formulario(request):
                         hora_voto_act=hora_formateada,
                         nombre=nombre.upper()
                     )
-                asunto_correo = '¡Gracias por votar!'
-                mensaje_html = f"""
-                <html>
-	<head>
-		<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
-	</head>
-<body>
-<table align="center" style="background:#efefef; width: 100%;">
-	<td>
 
-	<table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif">
-	<tr><td><hr style="height: 1px; width: 695px; background-color: #888888; margin: 0px; border: 0px;"></td></tr>
-	</table>
-	    
-<table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif; background-color: #000;">
-<tr>
-	<td style="background-color: rgb(255, 251, 251); padding: 30px; margin-bottom: 30px;"><center><img alt="imagen" src="https://premiosenoturismochile.cl/wp-content/uploads/2023/04/Nuevo-logo-2023-naranjo-1024x572.png" width="150" height="84" style="display: block; border: 0px; margin: 0px;"/></center></td>
-	
-</tr>
-<tr><td><hr style="height: 0px; width: 695px; background-color: #888888; margin: 0px; border: 0px;"></td></tr>
-        </table>
-		
-	<table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-seri">
-		<tr style="background-color: #fff;">
-		  <td height="100">
-		  <ul style="list-style-type:none; margin:0px; border:none;">
-		  <li style=" font:museo; font-weight: bold; text-align: justify; font-size:18px; color:#005E7C; padding:20px 40px 0px 0px; margin:0px; line-height: 20px;"><br>Hola {nombre}</li>
-		<li style="font:Panton-regular; text-align: justify; font-size:14px; color:#454545; padding:15px 40px 0px 0px; margin:0px; line-height: 20px;">
-			Gracias por participar en la votación de los Premios Enoturismo Chile 2023.
-			<br><br>
-			¡Tus preferencias para la categoría, Mejor Viña Emergente, han sido registradas exitosamente!.
-			<br><br>
-			Qué suerte, desde ahora ya te encuentras participando para acceder a una de las fabulosas Experiencias Enoturísticas o Canastas de Productos Regionales que se sortearán en los próximos días.
-			<br><br>
-			No olvides estar atentos a nuestras redes sociales y enterarte de los resultados de los ganadores de los <a href="https://premiosenoturismochile.cl">#premiosenoturismochile2023</a>.
-			<br><br>
-			Atentamente, equipo Enoturismo Chile. 
-			<br><br>
-			<a href="https://premiosenoturismochile.cl">www.premiosenoturismochile.cl</a>
-			<br><br>
-			<a href="https://www.enoturismochile.cl">www.enoturismochile.cl</a>
-		</li>
-		<br><br>
-		</ul>
-		  </td>
-		</tr>
-		  </table>
-		
-		<table width="695" border="0" align="center" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif; background:#efefef;">
-  		<tr>
-			<td width="274" style="text-align:center;"><img alt="utem" src="https://premiosenoturismochile.cl/wp-content/uploads/2023/08/footer2-e1692756440961.jpg" /></td>
-		</tr>
-		</table>					
-            </table>
-        </body>
-        </html>
-                """
-                enviar_correo(asunto_correo, mensaje_html, correo)
                 mensaje = 'Votacion exitosa.'
                 estado = 1
         else:
