@@ -20,40 +20,5 @@ class Migration(migrations.Migration):
             model_name='registrovotostest',
             name='ip_votante',
             field=models.TextField(blank=True, null=True),
-        ),
-        migrations.AddField(
-            model_name='registrovotostest',
-            name='nombre',
-            field=models.TextField(blank=True),
-        ),
-        migrations.AddField(
-            model_name='vinnastest',
-            name='categoria',
-            field=models.IntegerField(default=0),
-        ),
-        migrations.AddField(
-            model_name='vinnastest',
-            name='link_facebook',
-            field=models.TextField(default='', max_length=200),
-        ),
-        migrations.AddField(
-            model_name='vinnastest',
-            name='link_instagram',
-            field=models.TextField(default='', max_length=200),
-        ),
-        migrations.AddField(
-            model_name='vinnastest',
-            name='link_video',
-            field=models.TextField(default='', max_length=200),
-        ),
-        migrations.AddField(
-            model_name='vinnastest',
-            name='pagina_web',
-            field=models.TextField(default='', max_length=200),
-        ),
-        migrations.AddField(
-            model_name='vinnastest',
-            name='region',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='votaciones.RegionesTest'),
-        ),
+        )
     ]
