@@ -18,13 +18,13 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.shortcuts import render, redirect
-from votaciones.models import RegionesTest, VinnasTest, RegistroVotosTest
+from votaciones.models import RegionesTest, VinnasTest
 from django.http import HttpResponse, JsonResponse
-
+from votaciones.views import RegistroVotosTest2
 
 
 def index(request):
-    votos_experiencia = RegistroVotosTest.objects.filter(tipo_registro='viñaEmergente')
+    votos_experiencia = RegistroVotosTest2.objects.filter(tipo_registro='viñaEmergente')
     votos = votos_experiencia.count()
     return render(request,'votacion_emergente/index.html',{'votos':votos})
 
@@ -61,7 +61,7 @@ def cargar_datos_votacion(request):
         regiones = RegionesTest.objects.filter(regiones_vigencia=1)
         vinnas = VinnasTest.objects.all()
         lista_regiones = []
-        votos_emergente = RegistroVotosTest.objects.filter(tipo_registro='viñaEmergente')
+        votos_emergente = RegistroVotosTest2.objects.filter(tipo_registro='viñaEmergente')
         votos = votos_emergente.count() if votos_emergente else 0
         tipo_registro = 'viñaEmergente'
         for region in regiones:
@@ -128,9 +128,9 @@ def envio_datos_formulario(request):
         hora_formateada = hora_actual.strftime(formato_hora)
 
 
-        validacion_pasaporte = RegistroVotosTest.objects.filter(pasaporte=documento).first()
-        validacion_correo = RegistroVotosTest.objects.filter(correo_electronico=correo).first()
-        registro = RegistroVotosTest.objects.filter(tipo_registro=tipo_registro,pasaporte = documento).first()
+        validacion_pasaporte = RegistroVotosTest2.objects.filter(pasaporte=documento).first()
+        validacion_correo = RegistroVotosTest2.objects.filter(correo_electronico=correo).first()
+        registro = RegistroVotosTest2.objects.filter(tipo_registro=tipo_registro,pasaporte = documento).first()
 
         pasaporte = validacion_pasaporte.pasaporte if validacion_pasaporte else None
         correoValidado = validacion_correo.correo_electronico if validacion_correo else None
@@ -144,7 +144,7 @@ def envio_datos_formulario(request):
                 mensaje = ' el rut asociado al voto ya fue registrado anteriormente '
             else:
                 for i in range(len(viñas_id)):
-                    registro = RegistroVotosTest.objects.create(
+                    registro = RegistroVotosTest2.objects.create(
                         tipo_registro='viñaEmergente',
                         correo_electronico=correo,
                         pasaporte=documento,

@@ -9,18 +9,37 @@ from django.shortcuts import render
 from django.conf import settings
 # Create your views here.
 from django.shortcuts import render, redirect
-from .models import   RegionesTest, VinnasTest, RegistroVotosTest
+from .models import   RegionesTest, VinnasTest
 from django.http import HttpResponse, JsonResponse
 import pytz
 from datetime import datetime
+from django.db import models
 
 
 
 def index(request):
     # datos = WpqhUsers.objects.all()
-    votos_experiencia = RegistroVotosTest.objects.filter(tipo_registro='experienciaENO')
+    votos_experiencia = RegistroVotosTest2.objects.filter(tipo_registro='experienciaENO')
     votos = votos_experiencia.count()
     return render(request,'votacion/index.html',{'votos':votos})
+
+class RegistroVotosTest2(models.Model):
+    id = models.BigAutoField(db_column='id_registros', primary_key=True)
+    nombre = models.TextField(blank=True)
+    tipo_registro = models.CharField(max_length=60)
+    registro_vigencia = models.BooleanField(default=True)
+    correo_electronico = models.CharField(max_length=120, default='correo@example.com')
+    pasaporte = models.CharField(max_length=120, default='1111111')
+    vinna = models.ForeignKey(VinnasTest,blank=True,null=True, on_delete=models.CASCADE)
+    region = models.ForeignKey(RegionesTest,blank=True,null=True, on_delete=models.CASCADE)
+    fecha_voto_act = models.CharField(max_length=120, default="23/08/2023")
+    hora_voto_act = models.CharField(max_length=120,default='-')
+    ip_votante = models.TextField(blank=True, null=True)
+    browser = models.TextField(blank=True, null=True)
+    
+    class Meta:
+        managed = True
+        db_table = "registro_votos_test"
 
 def enviar_correo(asunto, mensaje_html, destinatario):
     # Configura la información del servidor SMTP de Gmail
@@ -56,7 +75,7 @@ def cargar_datos_votacion(request):
         regiones = RegionesTest.objects.all()
         vinnas = VinnasTest.objects.all()
         lista_regiones = []
-        votos_experiencia = RegistroVotosTest.objects.filter(tipo_registro='experienciaENO')
+        votos_experiencia = RegistroVotosTest2.objects.filter(tipo_registro='experienciaENO')
         votos = votos_experiencia.count()
         tipo_registro = 'experienciaENO'
         for region in regiones:
@@ -120,9 +139,9 @@ def envio_datos_formulario(request):
         fecha_formateada = fecha_actual.strftime(formato) 
         hora_formateada = hora_actual.strftime(formato_hora)
 
-        validacion_pasaporte = RegistroVotosTest.objects.filter(pasaporte=documento).first()
-        validacion_correo = RegistroVotosTest.objects.filter(correo_electronico=correo).first()
-        registro = RegistroVotosTest.objects.filter(tipo_registro=tipo_registro,pasaporte = documento).first()
+        validacion_pasaporte = RegistroVotosTest2.objects.filter(pasaporte=documento).first()
+        validacion_correo = RegistroVotosTest2.objects.filter(correo_electronico=correo).first()
+        registro = RegistroVotosTest2.objects.filter(tipo_registro=tipo_registro,pasaporte = documento).first()
 
         pasaporte = validacion_pasaporte.pasaporte if validacion_pasaporte else None
         correoValidado = validacion_correo.correo_electronico if validacion_correo else None
@@ -136,7 +155,7 @@ def envio_datos_formulario(request):
                 mensaje = ' el rut asociado al voto ya fue registrado anteriormente '
             else:
                 for i in range(len(viñas_id)):
-                    registro = RegistroVotosTest.objects.create(
+                    registro = RegistroVotosTest2.objects.create(
                         tipo_registro='experienciaENO',
                         correo_electronico=correo,
                         pasaporte=documento,
