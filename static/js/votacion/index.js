@@ -1,7 +1,8 @@
 
 
 $(document).ready(function () {
-  
+  window.location.replace("https://premiosenoturismochile.cl/votaciones-cerradas/");
+  return;
   // Despliega spinner de carga
   function mostrarSpinner() {
     Swal.fire({
